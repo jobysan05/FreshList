@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54353DD321767EC9005C9D3B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54353DD221767EC9005C9D3B /* SWRevealViewController.m */; };
 		C301BA572175A3F300EF9977 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301BA562175A3F300EF9977 /* SignUpViewController.swift */; };
 		C3B6483A217506700051D9EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B64839217506700051D9EA /* AppDelegate.swift */; };
 		C3B6483F217506700051D9EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3B6483D217506700051D9EA /* Main.storyboard */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54353DD121767E85005C9D3B /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		54353DD221767EC9005C9D3B /* SWRevealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		C301BA562175A3F300EF9977 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C3B64836217506700051D9EA /* Fresh List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fresh List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B64839217506700051D9EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +65,8 @@
 				C3B6484B2175069A0051D9EA /* LoginViewController.swift */,
 				C3B6485121759D090051D9EA /* IngredientsTableViewController.swift */,
 				C301BA562175A3F300EF9977 /* SignUpViewController.swift */,
+				54353DD121767E85005C9D3B /* SWRevealViewController.h */,
+				54353DD221767EC9005C9D3B /* SWRevealViewController.m */,
 				C3B6483D217506700051D9EA /* Main.storyboard */,
 				C3B64840217506740051D9EA /* Assets.xcassets */,
 				C3B64842217506740051D9EA /* LaunchScreen.storyboard */,
@@ -102,6 +107,7 @@
 				TargetAttributes = {
 					C3B64835217506700051D9EA = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -143,6 +149,7 @@
 			files = (
 				C301BA572175A3F300EF9977 /* SignUpViewController.swift in Sources */,
 				C3B6483A217506700051D9EA /* AppDelegate.swift in Sources */,
+				54353DD321767EC9005C9D3B /* SWRevealViewController.m in Sources */,
 				C3B6485221759D090051D9EA /* IngredientsTableViewController.swift in Sources */,
 				C3B6484C2175069A0051D9EA /* LoginViewController.swift in Sources */,
 			);
@@ -288,6 +295,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Fresh List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -296,6 +304,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AbhiKumar.Fresh-List";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -305,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Fresh List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -50,7 +50,11 @@ class SignUpViewController: UIViewController {
                 self.uNameTextField.text = ""
                 
                 performSegue(withIdentifier: "segueFromSignUpToLoggedIn", sender: self)
-            } else {
+            }
+            /*else if () {
+                // Check if username already exists
+            } */
+            else {
                 let alert = UIAlertController(title: "Invalid Password", message: "Passwords must match!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {_ in alert.dismiss(animated: true, completion: nil)}))
                 self.present(alert, animated: true, completion: nil)
