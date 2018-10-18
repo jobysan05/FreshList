@@ -18,3 +18,6 @@ Stats page
 
 For MEnu controller in home page to go to other pages and see user account info
 https://github.com/dekatotoro/SlideMenuControllerSwift
+
+drag right to expand and drag left to close slide menu
+https://www.appcoda.com/ios-programming-sidebar-navigation-menu/
