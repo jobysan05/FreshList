@@ -13,3 +13,8 @@ Recipe List
 Recipe Detail Page
 Add User Recipe Page
 Stats page
+
+
+
+For MEnu controller in home page to go to other pages and see user account info
+https://github.com/dekatotoro/SlideMenuControllerSwift
