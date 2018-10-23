@@ -37,4 +37,7 @@ Introduction to Core ML: Building a Simple Image Recognition App
 
 https://www.appcoda.com/coreml-introduction/
 
+our entire recipe app base project idea
+https://medium.freecodecamp.org/learn-ios-best-practices-by-building-a-simple-recipes-app-9bcbce4d10d
+
 
