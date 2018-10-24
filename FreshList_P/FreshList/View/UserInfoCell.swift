@@ -25,6 +25,16 @@ class BaseCell: UICollectionViewCell {
 
 class UserInfoCell: BaseCell {
     
+    var setting: Setting? {
+        didSet {
+            nameLabel.text = setting?.name
+            
+            if let imageName = setting?.imageName {
+                iconImageView.image = UIImage(named: imageName)
+            }
+        }
+    }
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Username"

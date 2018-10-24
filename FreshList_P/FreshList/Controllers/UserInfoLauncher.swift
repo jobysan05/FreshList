@@ -8,6 +8,15 @@
 
 import UIKit
 
+class Setting: NSObject {
+    let name: String
+    let imageName: String
+    init(name: String, imageName: String) {
+        self.name = name
+        self.imageName = imageName
+    }
+}
+
 class UserInfoLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // Initializing view to dim background when user side menu is loaded
@@ -21,6 +30,10 @@ class UserInfoLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }()
     
     let cellID = "cellID"
+    
+    let settings: [Setting] = {
+        return [Setting(name: "Username", imageName: "usercircleicon"), Setting(name: "Account Settings", imageName: "settingsicon"), Setting(name: "Logout", imageName: "logouticon")]
+    }()
     
     // Function to show user menu
     @objc func showUserMenu() {
@@ -58,11 +71,13 @@ class UserInfoLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return settings.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)  as! UserInfoCell
+        let setting = settings[indexPath.row]
+        cell.setting = setting
         return cell
     }
     

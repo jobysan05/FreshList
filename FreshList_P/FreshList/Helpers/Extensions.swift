@@ -2,8 +2,8 @@
 //  Extensions.swift
 //  FreshList
 //
-//  Created by Saikrishna Ramalingam on 10/23/18.
-//  Copyright © 2018 Abhi Kumar. All rights reserved.
+//  Created by Abhinav Kumar on 10/23/18.
+//  Copyright © 2018 Abhinav Kumar. All rights reserved.
 //
 
 import UIKit
