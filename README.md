@@ -13,6 +13,7 @@ Recipe List
 Recipe Detail Page
 Add User Recipe Page
 Stats page
+bar code scanner
 
 
 
@@ -39,5 +40,9 @@ https://www.appcoda.com/coreml-introduction/
 
 our entire recipe app base project idea
 https://medium.freecodecamp.org/learn-ios-best-practices-by-building-a-simple-recipes-app-9bcbce4d10d
+
+firebasin login 
+https://firebase.google.com/docs/auth/ios/password-auth
+https://www.youtube.com/watch?v=asKXHVUZiIY
 
 
