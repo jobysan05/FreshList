@@ -93,14 +93,35 @@ class LoginController: UIViewController {
         
         return button
     }()
+    
+    // Configure skip login button
+    let skipLoginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("Skip For Now", for: .normal)
+        button.setTitleColor(UIColor(r: 230, g: 230, b: 230), for: .normal)
+        button.addTarget(self, action: #selector(handleSkipLogin), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    // Function called to skip login and go to home screen
+    @objc func handleSkipLogin() {
+        let tabBarController = CustomTabBarController()
+        present(tabBarController, animated: true, completion: nil)
+        
+    }
+    
     // Confiure login/register toggle
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let segctrl = UISegmentedControl(items: ["Login","Register"])
-        segctrl.translatesAutoresizingMaskIntoConstraints = false
         segctrl.layer.cornerRadius = 25
         segctrl.tintColor = UIColor(r: 48,g: 89, b: 23)
         segctrl.selectedSegmentIndex = 1
         segctrl.addTarget(self, action: #selector(handleLoginRegisterToggle), for: .valueChanged)
+        segctrl.translatesAutoresizingMaskIntoConstraints = false
+        
         return segctrl
     }()
     // Function called by toggle to configure view appropriately
@@ -140,11 +161,13 @@ class LoginController: UIViewController {
         view.addSubview(loginRegisterButton)
         view.addSubview(logoImageView)
         view.addSubview(loginRegisterSegmentedControl)
+        view.addSubview(skipLoginButton)
         
         setupInputsContainerView()
         setupLoginRegisterButton()
         setupLogoImageView()
         setupLoginRegisterSegmentedControl()
+        setupSkipLoginButton()
         
     }
     
@@ -234,13 +257,20 @@ class LoginController: UIViewController {
         
     }
     
-    // Function to set up boundaries and positioning for login button
+    // Function to set up boundaries and positioning for login/register button
     private func setupLoginRegisterButton() {
-        // Set up X, Y, width, and height constraints for register button
+        // Set up X, Y, width, and height constraints for login/register button
         loginRegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -48).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    // Function to set up boundaries and positioning for skip login button
+    private func setupSkipLoginButton() {
+        // Set up X, Y, width, and height constraints for skip login button
+        skipLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        skipLoginButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 30).isActive = true
     }
     
     func preferredStatusBarStyle() -> UIStatusBarStyle {

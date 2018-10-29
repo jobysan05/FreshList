@@ -45,7 +45,8 @@ class CustomTabBarController: UITabBarController {
         ingredientsNavigationController.tabBarItem.image = UIImage(named: "ingredientsicon")
 
         // Recipes List Tab Button
-        let recipesController = RecipesViewController()
+        let layout = UICollectionViewFlowLayout()
+        let recipesController = RecipesViewController(collectionViewLayout: layout)
         let recipesNavigationController = UINavigationController(rootViewController: recipesController)
         recipesNavigationController.title = "Recipes"
         recipesNavigationController.tabBarItem.image = UIImage(named: "recipesicon")
@@ -56,6 +57,12 @@ class CustomTabBarController: UITabBarController {
         statsNavigationController.title = "Statistics"
         statsNavigationController.tabBarItem.image = UIImage(named: "statsicon")
         
-        viewControllers = [shoppingListNavigationController, ingredientsNavigationController, recipesNavigationController, statsNavigationController]
+        // Account Tab Button
+        let accountController = AccountViewController()
+        let accountNavigationController = UINavigationController(rootViewController: accountController)
+        accountNavigationController.title = "Account"
+        accountNavigationController.tabBarItem.image = UIImage(named: "accounticon")
+        
+        viewControllers = [shoppingListNavigationController, ingredientsNavigationController, recipesNavigationController, statsNavigationController, accountNavigationController]
     }
 }

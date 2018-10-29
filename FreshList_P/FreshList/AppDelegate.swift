@@ -13,7 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -21,8 +21,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = CustomTabBarController()
         
+        // Get rid of shadow under navigation bar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
         // Change highlight color of tab bar buttons
         UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
+        
+        // Change font color in status bar to white and make background darker
+        UIApplication.shared.statusBarStyle = .lightContent
+        let statusBarBackground = UIView()
+        statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
+        window?.addSubview(statusBarBackground)
+        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
+        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
+        
         
         return true
     }

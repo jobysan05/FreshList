@@ -30,29 +30,8 @@ class ShoppingListViewController: UITableViewController {
     }
     
     private func setupNavigationBarItems() {
-        setupUserButton()
         // TODO: Add search bar and appropriate functionalities. Want to be able to add items quickly searched from our DB
         // TODO: Add button to open up camera and call barcode API. Yea this is a big feature
-    }
-    
-    // Function to set up user button in navigation bar
-    private func setupUserButton() {
-        // Configuration for user info button
-        let userImg = UIImage(named: "usercircleicon")
-        let userInfoButton = UIButton(type: .system)
-        userInfoButton.setImage(userImg, for: .normal)
-        userInfoButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        userInfoButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        userInfoButton.tintColor = UIColor.white
-        userInfoButton.addTarget(self, action: #selector(handleUserMenu), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoButton)
-    }
-    
-    let userInfoLauncher = UserInfoLauncher()
-    
-    // Function to show user menu
-    @objc private func handleUserMenu() {
-        userInfoLauncher.showUserMenu()
     }
     
     // BEGIN Table View Configurations

@@ -33,28 +33,7 @@ class IngredientsViewController: UITableViewController {
     
     // Function called to set up items in Navigation Bar
     private func setupNavigationBarItems() {
-        setupUserButton()
         setupAddItemButton()
-    }
-    
-    // Function to set up user button in navigation bar
-    private func setupUserButton() {
-        // Configuration for user info button
-        let userImg = UIImage(named: "usercircleicon")
-        let userInfoButton = UIButton(type: .system)
-        userInfoButton.setImage(userImg, for: .normal)
-        userInfoButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        userInfoButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        userInfoButton.tintColor = UIColor.white
-        userInfoButton.addTarget(self, action: #selector(handleUserMenu), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoButton)
-    }
-    
-    let userInfoLauncher = UserInfoLauncher()
-    
-    // Function to show user menu
-    @objc private func handleUserMenu() {
-        userInfoLauncher.showUserMenu()
     }
     
     // Function to set up add item button in navigation bar
@@ -64,13 +43,6 @@ class IngredientsViewController: UITableViewController {
         addItemButton.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = addItemButton
     }
-    
-    // Function called to logout and return to login screen
-//    @objc func handleLogout() {
-//        // TODO: Add Firebase functionality
-//        let loginController = LoginController()
-//        present(loginController, animated: true, completion: nil)
-//    }
     
     // Function called by addItemButton to show AddItemView
     @objc private func handleAddItem() {
