@@ -45,4 +45,4 @@ firebasin login
 https://firebase.google.com/docs/auth/ios/password-auth
 https://www.youtube.com/watch?v=asKXHVUZiIY
 
-
+Barcode Scanner: https://www.appcoda.com/barcode-reader-swift/
