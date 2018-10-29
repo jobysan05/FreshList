@@ -13,6 +13,7 @@
 		C3AE11092179C4A2000F6EDA /* FreshList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3AE11072179C4A2000F6EDA /* FreshList.xcdatamodeld */; };
 		C3AE110B2179C4A2000F6EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3AE110A2179C4A2000F6EDA /* Assets.xcassets */; };
 		C3AE110E2179C4A2000F6EDA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AE110C2179C4A2000F6EDA /* LaunchScreen.storyboard */; };
+		C3B2028F2187C98100FAFFCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B2028E2187C98100FAFFCC /* GoogleService-Info.plist */; };
 		C3C12A7721869496008FE026 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C12A7621869496008FE026 /* RecipeCell.swift */; };
 		C3C12A792186D959008FE026 /* RecipeMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C12A782186D959008FE026 /* RecipeMenuBar.swift */; };
 		C3C12A7B2186E6EF008FE026 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C12A7A2186E6EF008FE026 /* BaseCell.swift */; };
@@ -36,6 +37,7 @@
 		C3AE110A2179C4A2000F6EDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3AE110D2179C4A2000F6EDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3AE110F2179C4A2000F6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3B2028E2187C98100FAFFCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3C12A7621869496008FE026 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		C3C12A782186D959008FE026 /* RecipeMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMenuBar.swift; sourceTree = "<group>"; };
 		C3C12A7A2186E6EF008FE026 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				C3AE110C2179C4A2000F6EDA /* LaunchScreen.storyboard */,
 				C3AE110F2179C4A2000F6EDA /* Info.plist */,
 				C3AE11072179C4A2000F6EDA /* FreshList.xcdatamodeld */,
+				C3B2028E2187C98100FAFFCC /* GoogleService-Info.plist */,
 			);
 			path = FreshList;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				C3AE110E2179C4A2000F6EDA /* LaunchScreen.storyboard in Resources */,
 				C3AE110B2179C4A2000F6EDA /* Assets.xcassets in Resources */,
+				C3B2028F2187C98100FAFFCC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

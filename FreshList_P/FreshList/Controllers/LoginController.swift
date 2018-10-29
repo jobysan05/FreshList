@@ -124,6 +124,8 @@ class LoginController: UIViewController {
         
         return segctrl
     }()
+    
+    
     // Function called by toggle to configure view appropriately
     @objc func handleLoginRegisterToggle() {
         let title = loginRegisterSegmentedControl.titleForSegment(at: (loginRegisterSegmentedControl.selectedSegmentIndex))
