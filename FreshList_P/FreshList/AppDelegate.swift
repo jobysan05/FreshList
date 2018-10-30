@@ -28,15 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Change highlight color of tab bar buttons
         UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
         
-        // Change font color in status bar to white and make background darker
-        UIApplication.shared.statusBarStyle = .lightContent
-        let statusBarBackground = UIView()
-        statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
-        window?.addSubview(statusBarBackground)
-        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
-        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
-        
-        
         return true
     }
 
