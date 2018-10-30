@@ -46,3 +46,5 @@ https://firebase.google.com/docs/auth/ios/password-auth
 https://www.youtube.com/watch?v=asKXHVUZiIY
 
 Barcode Scanner: https://www.appcoda.com/barcode-reader-swift/
+
+statistics , bar chart controller swift : https://www.appcoda.com/ios-charts-api-tutorial/
