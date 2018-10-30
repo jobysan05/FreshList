@@ -14,6 +14,7 @@
 		C3AE110B2179C4A2000F6EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3AE110A2179C4A2000F6EDA /* Assets.xcassets */; };
 		C3AE110E2179C4A2000F6EDA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AE110C2179C4A2000F6EDA /* LaunchScreen.storyboard */; };
 		C3B2028F2187C98100FAFFCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B2028E2187C98100FAFFCC /* GoogleService-Info.plist */; };
+		C3B202912188CB3300FAFFCC /* AddToShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B202902188CB3300FAFFCC /* AddToShoppingListViewController.swift */; };
 		C3C12A7721869496008FE026 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C12A7621869496008FE026 /* RecipeCell.swift */; };
 		C3C12A792186D959008FE026 /* RecipeMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C12A782186D959008FE026 /* RecipeMenuBar.swift */; };
 		C3C12A7B2186E6EF008FE026 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C12A7A2186E6EF008FE026 /* BaseCell.swift */; };
@@ -38,6 +39,7 @@
 		C3AE110D2179C4A2000F6EDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3AE110F2179C4A2000F6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3B2028E2187C98100FAFFCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3B202902188CB3300FAFFCC /* AddToShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShoppingListViewController.swift; sourceTree = "<group>"; };
 		C3C12A7621869496008FE026 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		C3C12A782186D959008FE026 /* RecipeMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMenuBar.swift; sourceTree = "<group>"; };
 		C3C12A7A2186E6EF008FE026 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
@@ -66,15 +68,16 @@
 		C31EC089217CFE510085A255 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C3CA0FB921824D7800A98A43 /* AccountViewController.swift */,
-				C3AE11022179C4A2000F6EDA /* IngredientsViewController.swift */,
+				C31EC08A217CFE950085A255 /* LoginController.swift */,
+				C3C5C6F3217EBEB7005D4C64 /* CustomTabBarController.swift */,
 				C3C5C6F5217EFF28005D4C64 /* ShoppingListViewController.swift */,
+				C3AE11022179C4A2000F6EDA /* IngredientsViewController.swift */,
+				C3C5C6F7217EFF7D005D4C64 /* RecipesViewController.swift */,
+				C3C5C6F9217F0006005D4C64 /* StatsViewController.swift */,
+				C3CA0FB921824D7800A98A43 /* AccountViewController.swift */,
+				C3B202902188CB3300FAFFCC /* AddToShoppingListViewController.swift */,
 				C3C5C6FB217F9C33005D4C64 /* AddToIngredientsViewController.swift */,
 				C3C5C6FD217FC916005D4C64 /* AddToRecipesViewController.swift */,
-				C3C5C6F9217F0006005D4C64 /* StatsViewController.swift */,
-				C31EC08A217CFE950085A255 /* LoginController.swift */,
-				C3C5C6F7217EFF7D005D4C64 /* RecipesViewController.swift */,
-				C3C5C6F3217EBEB7005D4C64 /* CustomTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				C3C12A7721869496008FE026 /* RecipeCell.swift in Sources */,
 				C3C12A7B2186E6EF008FE026 /* BaseCell.swift in Sources */,
 				C3AE11012179C4A2000F6EDA /* AppDelegate.swift in Sources */,
+				C3B202912188CB3300FAFFCC /* AddToShoppingListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

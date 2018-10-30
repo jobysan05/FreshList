@@ -1,14 +1,14 @@
 //
-//  AddToIngredientsViewController.swift
+//  AddToShoppingListViewController.swift
 //  FreshList
 //
-//  Created by Abhinav Kumar on 10/23/18.
-//  Copyright © 2018 ubiqteam7fall. All rights reserved.
+//  Created by Abhinav Kumar on 10/30/18.
+//  Copyright © 2018 Aubiqteam7fall. All rights reserved.
 //
 
 import UIKit
 
-class AddToIngredientsViewController: UIViewController {
+class AddToShoppingListViewController: UIViewController {
     
     // Configure inputs container
     let inputsContainerView: UIView = {
@@ -71,26 +71,6 @@ class AddToIngredientsViewController: UIViewController {
     
     // Configure line under unit text field
     let unitSeparatorView: UIView = {
-        let separator = UIView()
-        separator.backgroundColor = UIColor.black
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        
-        return separator
-    }()
-    
-    // Configure expiry date text field
-    // TODO: change to date input type
-    let expiryDateTextField: UITextField = {
-        let tf = UITextField()
-        tf.textColor = UIColor.black
-        tf.attributedPlaceholder = NSAttributedString(string: "Expiry Date", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 180, g: 180, b: 180)])
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tf
-    }()
-    
-    // Configure line under expiry date text field
-    let expirySeparatorView: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor.black
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -188,18 +168,5 @@ class AddToIngredientsViewController: UIViewController {
         unitSeparatorView.topAnchor.constraint(equalTo: unitTextField.bottomAnchor).isActive = true
         unitSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/5).isActive = true
         unitSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        inputsContainerView.addSubview(expirySeparatorView)
-        expirySeparatorView.bottomAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: -1).isActive = true
-        expirySeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        expirySeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3).isActive = true
-        expirySeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        inputsContainerView.addSubview(expiryDateTextField)
-        expiryDateTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        expiryDateTextField.bottomAnchor.constraint(equalTo: expirySeparatorView.topAnchor).isActive = true
-        expiryDateTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3).isActive = true
-        expiryDateTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
     }
 }

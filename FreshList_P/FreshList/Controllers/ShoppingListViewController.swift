@@ -3,7 +3,7 @@
 //  FreshList
 //
 //  Created by Abhinav Kumar on 10/23/18.
-//  Copyright © 2018 Abhinav Kumar. All rights reserved.
+//  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
 import UIKit
@@ -29,9 +29,27 @@ class ShoppingListViewController: UITableViewController {
         setupNavigationBarItems()
     }
     
+    // Function called to set up items in Navigation Bar
     private func setupNavigationBarItems() {
         // TODO: Add search bar and appropriate functionalities. Want to be able to add items quickly searched from our DB
         // TODO: Add button to open up camera and call barcode API. Yea this is a big feature
+        setupAddItemButton()
+    }
+    
+    // Function to set up add item button in navigation bar
+    private func setupAddItemButton() {
+        // Configuration for add ingredient button
+        let addItemButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(handleAddItem))
+        addItemButton.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = addItemButton
+    }
+    
+    // Function called by addItemButton to show AddItemView
+    @objc private func handleAddItem() {
+        let addShoppingItemController = AddToShoppingListViewController()
+        navigationController?.pushViewController(addShoppingItemController, animated: true)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
     
     // BEGIN Table View Configurations
