@@ -121,8 +121,8 @@ class AddToShoppingListViewController: UIViewController {
     
     // Function called to open barcode scanner
     @objc private func handleBarcode() {
-        let addShoppingItemController = AddToShoppingListViewController()
-        navigationController?.pushViewController(addShoppingItemController, animated: true)
+//        let addShoppingItemController = AddToShoppingListViewController()
+//        navigationController?.pushViewController(addShoppingItemController, animated: true)
     }
     
     // Function to set up add item button in navigation bar
