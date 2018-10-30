@@ -106,16 +106,31 @@ class AddToShoppingListViewController: UIViewController {
     
     // Function to set up items in navigation bar
     private func setupNavigationBarItems() {
-        setupAddItemButton()
+        let addItemButton = setupAddItemButton()
+        let barcodeButton = setupBarcodeButton()
+        navigationItem.rightBarButtonItems = [addItemButton, barcodeButton]
     }
     
+    // Function to set up barcode button in navigation bar
+    private func setupBarcodeButton() -> UIBarButtonItem {
+        let barcodeImage = UIImage(named: "barcode")
+        let barcodeButton = UIBarButtonItem(image: barcodeImage, style: .plain, target: self, action: #selector(handleBarcode))
+        barcodeButton.tintColor = UIColor.white
+        return barcodeButton
+    }
+    
+    // Function called to open barcode scanner
+    @objc private func handleBarcode() {
+        let addShoppingItemController = AddToShoppingListViewController()
+        navigationController?.pushViewController(addShoppingItemController, animated: true)
+    }
     
     // Function to set up add item button in navigation bar
-    private func setupAddItemButton() {
+    private func setupAddItemButton() -> UIBarButtonItem {
         // Configuration for add ingredient button
         let addItemButton = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(handleConfirmAdd))
         addItemButton.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = addItemButton
+        return addItemButton
     }
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
@@ -132,7 +147,7 @@ class AddToShoppingListViewController: UIViewController {
         inputsContainerView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         inputsContainerView.addSubview(nameTextField)
-        // Set up X, Y, width, and height constraints for inputs container
+        // Set up X, Y, width, and height constraints for name text field
         nameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         nameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2/3).isActive = true
@@ -146,24 +161,28 @@ class AddToShoppingListViewController: UIViewController {
         nameSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         inputsContainerView.addSubview(amountTextField)
+        // Set up X, Y, width, and height constraints for amount text field
         amountTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         amountTextField.centerYAnchor.constraint(equalTo: inputsContainerView.centerYAnchor).isActive = true
         amountTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3).isActive = true
         amountTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         inputsContainerView.addSubview(amountSeparatorView)
+        // Set up X, Y, width, and height constraints for line under amount field
         amountSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         amountSeparatorView.topAnchor.constraint(equalTo: amountTextField.bottomAnchor).isActive = true
         amountSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3).isActive = true
         amountSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         inputsContainerView.addSubview(unitTextField)
+        // Set up X, Y, width, and height constraints for unit text field
         unitTextField.leftAnchor.constraint(equalTo: amountTextField.rightAnchor, constant: 8).isActive = true
         unitTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/5).isActive = true
         unitTextField.centerYAnchor.constraint(equalTo: inputsContainerView.centerYAnchor).isActive = true
         unitTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         inputsContainerView.addSubview(unitSeparatorView)
+        // Set up X, Y, width, and height constraints for line under unit field
         unitSeparatorView.leftAnchor.constraint(equalTo: amountSeparatorView.rightAnchor, constant: 8).isActive = true
         unitSeparatorView.topAnchor.constraint(equalTo: unitTextField.bottomAnchor).isActive = true
         unitSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/5).isActive = true
