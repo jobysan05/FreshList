@@ -163,10 +163,12 @@ class AddToIngredientsViewController: UIViewController {
         inputsContainerView.addSubview(amountSeparatorView)
         amountSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         amountSeparatorView.topAnchor.constraint(equalTo: amountTextField.bottomAnchor).isActive = true
-        amountSeparatorView.widthAnchor.constraint(equalTo: amountTextField.widthAnchor).isActive = true
+        amountSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3).isActive = true
         amountSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         inputsContainerView.addSubview(unitSeparatorView)
+        unitSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        unitSeparatorView.bottomAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: -1).isActive = true
         
         inputsContainerView.addSubview(unitTextField)
         
