@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7AC5E6E5218939D400F1B642 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5E6E3218939D400F1B642 /* BarcodeScannerViewController.swift */; };
+		7AC5E6E6218939D400F1B642 /* BarcodeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5E6E4218939D400F1B642 /* BarcodeDetailsViewController.swift */; };
 		C31EC08B217CFE950085A255 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31EC08A217CFE950085A255 /* LoginController.swift */; };
 		C3AE11012179C4A2000F6EDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE11002179C4A2000F6EDA /* AppDelegate.swift */; };
 		C3AE11032179C4A2000F6EDA /* IngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE11022179C4A2000F6EDA /* IngredientsViewController.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7AC5E6E3218939D400F1B642 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeScannerViewController.swift; path = "../../../../1-Fall2018/Courses/4-Ubiquitous Computing/1-FreshList/FreshList-master/FreshList_P/FreshList/Controllers/BarcodeScannerViewController.swift"; sourceTree = "<group>"; };
+		7AC5E6E4218939D400F1B642 /* BarcodeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeDetailsViewController.swift; path = "../../../../1-Fall2018/Courses/4-Ubiquitous Computing/1-FreshList/FreshList-master/FreshList_P/FreshList/Controllers/BarcodeDetailsViewController.swift"; sourceTree = "<group>"; };
 		C31EC08A217CFE950085A255 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3AE10FD2179C4A2000F6EDA /* FreshList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreshList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AE11002179C4A2000F6EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 		C31EC089217CFE510085A255 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7AC5E6E4218939D400F1B642 /* BarcodeDetailsViewController.swift */,
+				7AC5E6E3218939D400F1B642 /* BarcodeScannerViewController.swift */,
 				C31EC08A217CFE950085A255 /* LoginController.swift */,
 				C3C5C6F3217EBEB7005D4C64 /* CustomTabBarController.swift */,
 				C3C5C6F5217EFF28005D4C64 /* ShoppingListViewController.swift */,
@@ -206,12 +212,14 @@
 			files = (
 				C3AE11092179C4A2000F6EDA /* FreshList.xcdatamodeld in Sources */,
 				C3C5C6F8217EFF7D005D4C64 /* RecipesViewController.swift in Sources */,
+				7AC5E6E6218939D400F1B642 /* BarcodeDetailsViewController.swift in Sources */,
 				C3C12A792186D959008FE026 /* RecipeMenuBar.swift in Sources */,
 				C3CA0FBA21824D7800A98A43 /* AccountViewController.swift in Sources */,
 				C3C5C6FA217F0006005D4C64 /* StatsViewController.swift in Sources */,
 				C31EC08B217CFE950085A255 /* LoginController.swift in Sources */,
 				C3C12A7D2186E793008FE026 /* RecipeMenuBarCell.swift in Sources */,
 				C3C5C6F6217EFF28005D4C64 /* ShoppingListViewController.swift in Sources */,
+				7AC5E6E5218939D400F1B642 /* BarcodeScannerViewController.swift in Sources */,
 				C3C5C6F4217EBEB7005D4C64 /* CustomTabBarController.swift in Sources */,
 				C3AE11032179C4A2000F6EDA /* IngredientsViewController.swift in Sources */,
 				C3C5C70821801D58005D4C64 /* Extensions.swift in Sources */,
