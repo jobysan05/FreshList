@@ -33,7 +33,8 @@ class ShoppingListViewController: UITableViewController {
     private func setupNavigationBarItems() {
         // TODO: Add search bar and appropriate functionalities. Want to be able to add items quickly searched from our DB
         let addItemButton = setupAddItemButton()
-        navigationItem.rightBarButtonItem = addItemButton
+        let searchButton = setupSearchButton()
+        navigationItem.rightBarButtonItems = [addItemButton, searchButton]
     }
     
     // Function to set up add item button in navigation bar
@@ -50,6 +51,27 @@ class ShoppingListViewController: UITableViewController {
         navigationController?.pushViewController(addShoppingItemController, animated: true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
+    }
+    
+    // Function to set up search button in navigation bar
+    private func setupSearchButton() -> UIBarButtonItem {
+        let searchBtn = UIButton(type: .custom)
+        var searchImg = UIImage(named: "search")
+        searchImg = searchImg?.maskWithColor(color: UIColor.white)
+        searchBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        searchBtn.setImage(searchImg, for: .normal)
+        searchBtn.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
+        let searchBarItem = UIBarButtonItem(customView: searchBtn)
+        let currWidth = searchBarItem.customView?.widthAnchor.constraint(equalToConstant: 24)
+        currWidth?.isActive = true
+        let currHeight = searchBarItem.customView?.heightAnchor.constraint(equalToConstant: 24)
+        currHeight?.isActive = true
+        return searchBarItem
+    }
+    
+    // Function called to search shopping list
+    @objc private func handleSearch() {
+        // TODO: Add search functionality
     }
     
     // BEGIN Table View Configurations
