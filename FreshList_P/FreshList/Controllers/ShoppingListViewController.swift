@@ -32,16 +32,16 @@ class ShoppingListViewController: UITableViewController {
     // Function called to set up items in Navigation Bar
     private func setupNavigationBarItems() {
         // TODO: Add search bar and appropriate functionalities. Want to be able to add items quickly searched from our DB
-        // TODO: Add button to open up camera and call barcode API. Yea this is a big feature
-        setupAddItemButton()
+        let addItemButton = setupAddItemButton()
+        navigationItem.rightBarButtonItem = addItemButton
     }
     
     // Function to set up add item button in navigation bar
-    private func setupAddItemButton() {
+    private func setupAddItemButton() -> UIBarButtonItem {
         // Configuration for add ingredient button
         let addItemButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(handleAddItem))
         addItemButton.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = addItemButton
+        return addItemButton
     }
     
     // Function called by addItemButton to show AddItemView

@@ -121,9 +121,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
     func displayDetailsViewController(scannedCode: String) {
-        let barcodeDetailsController = BarcodeDetailsViewController()
-        barcodeDetailsController.scannedCode = scannedCode
-        navigationController?.pushViewController(barcodeDetailsController, animated: true)
+        let addItemShoppingController = AddToShoppingListViewController()
+        addItemShoppingController.nameTextField.text = scannedCode
+//        let barcodeDetailsController = BarcodeDetailsViewController()
+//        barcodeDetailsController.scannedCode = scannedCode
+        navigationController?.pushViewController(addItemShoppingController, animated: true)
 //        present(detailsViewController, animated: true, completion: nil)
     }
     

@@ -111,6 +111,19 @@ class AddToShoppingListViewController: UIViewController {
         navigationItem.rightBarButtonItems = [addItemButton, barcodeButton]
     }
     
+    // Function to set up add item button in navigation bar
+    private func setupAddItemButton() -> UIBarButtonItem {
+        // Configuration for add ingredient button
+        let addItemButton = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(handleConfirmAdd))
+        addItemButton.tintColor = UIColor.white
+        return addItemButton
+    }
+    // Function called to add item to user's ingredients
+    @objc private func handleConfirmAdd() {
+        // TODO: Add firebase functionality to save item to user ingredients table
+        self.popBack(toControllerType: ShoppingListViewController.self)
+    }
+    
     // Function to set up barcode button in navigation bar
     private func setupBarcodeButton() -> UIBarButtonItem {
         let barcodeImage = UIImage(named: "barcode")
@@ -123,19 +136,6 @@ class AddToShoppingListViewController: UIViewController {
     @objc private func handleBarcode() {
         let barcodeController = BarcodeScannerViewController()
         navigationController?.pushViewController(barcodeController, animated: true)
-    }
-    
-    // Function to set up add item button in navigation bar
-    private func setupAddItemButton() -> UIBarButtonItem {
-        // Configuration for add ingredient button
-        let addItemButton = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(handleConfirmAdd))
-        addItemButton.tintColor = UIColor.white
-        return addItemButton
-    }
-    // Function called to add item to user's ingredients
-    @objc private func handleConfirmAdd() {
-        // TODO: Add firebase functionality to save item to user ingredients table
-        self.navigationController?.popViewController(animated: true)
     }
     
     // Function to setup inputs container and text fields within
