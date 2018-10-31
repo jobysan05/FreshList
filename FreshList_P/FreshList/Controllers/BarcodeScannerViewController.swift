@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  BarcodeScanner
+//  FreshList
 //
 //  Created by Joby Santhosh, Sebastian Macedonio on 7/14/17.
 //  Copyright © 2017 ubiqteam7fall. All rights reserved.
@@ -123,10 +123,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     func displayDetailsViewController(scannedCode: String) {
         let addItemShoppingController = AddToShoppingListViewController()
         addItemShoppingController.nameTextField.text = scannedCode
-//        let barcodeDetailsController = BarcodeDetailsViewController()
-//        barcodeDetailsController.scannedCode = scannedCode
+        // TODO: add custom go forward button to go back to add item page with name field filled
         navigationController?.pushViewController(addItemShoppingController, animated: true)
-//        present(detailsViewController, animated: true, completion: nil)
+
     }
     
 }

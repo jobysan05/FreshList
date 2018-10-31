@@ -12,12 +12,26 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     
     let cellID = "cellID"
     
+    var recipes: [Recipe] = {
+        var lasagnaRecipe = Recipe()
+        lasagnaRecipe.title = "Lasagna"
+        lasagnaRecipe.thumbnailImageString = "lasagna_img"
+        lasagnaRecipe.briefDescription = "It's lasagna"
+        
+        var icecreamrecipe = Recipe()
+        icecreamrecipe.title = "Ice Creammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        icecreamrecipe.thumbnailImageString = "icecream_img"
+        icecreamrecipe.briefDescription = "It's ice cream"
+        
+        return [lasagnaRecipe, icecreamrecipe]
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar(title: "Recipes")
         collectionView?.backgroundColor = UIColor.white
-        collectionView?.register(recipeCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView?.register(RecipeCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         setupMenuBar()
@@ -50,15 +64,17 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     
     // Function called to set up items in Navigation Bar
     private func setupNavigationBarItems() {
-        setupAddRecipeButton()
+        let addButton = setupAddRecipeButton()
+        let searchButton = setupSearchButton()
+        navigationItem.rightBarButtonItems = [addButton, searchButton]
     }
     
     // Function to set up add item button in navigation bar
-    private func setupAddRecipeButton() {
+    private func setupAddRecipeButton() -> UIBarButtonItem {
         // Configuration for add ingredient button
         let addItemButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(handleAddRecipe))
         addItemButton.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = addItemButton
+        return addItemButton
     }
     
     // Function called by addItemButton to show AddItemView
@@ -69,20 +85,41 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
     
+    // Function to set up search button in navigation bar
+    private func setupSearchButton() -> UIBarButtonItem {
+        let searchBtn = UIButton(type: .custom)
+        var searchImg = UIImage(named: "search")
+        searchImg = searchImg?.maskWithColor(color: UIColor.white)
+        searchBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        searchBtn.setImage(searchImg, for: .normal)
+        searchBtn.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
+        let searchBarItem = UIBarButtonItem(customView: searchBtn)
+        let currWidth = searchBarItem.customView?.widthAnchor.constraint(equalToConstant: 24)
+        currWidth?.isActive = true
+        let currHeight = searchBarItem.customView?.heightAnchor.constraint(equalToConstant: 24)
+        currHeight?.isActive = true
+        return searchBarItem
+    }
+    
+    // Function called to search shopping list
+    @objc private func handleSearch() {
+        // TODO: Add search functionality
+    }
+    
     // BEGIN configuration of cells in collectionView
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return recipes.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RecipeCell
+        cell.recipe = recipes[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (view.frame.width - 32) * (9/16)
-        return CGSize(width: view.frame.width, height: height + 84)
+        return CGSize(width: view.frame.width, height: height + 96)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
