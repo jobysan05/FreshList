@@ -7,13 +7,13 @@
 //
 
 import UIKit
-
+import Firebase
 class LoginController: UIViewController {
     // BEGIN Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     // Configure Logo
     let logoImageView: UIImageView = {
         let logo = UIImageView()
-        logo.image = UIImage(named: "gameofthrones_splash")
+        logo.image = UIImage(named: "icons8-organic-food-480")
         logo.contentMode = .scaleAspectFill
         logo.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,6 +67,7 @@ class LoginController: UIViewController {
     let passwordTextField: UITextField = {
         let tf = UITextField()
         tf.textColor = UIColor.white
+        var pw = tf.text
         tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 230, g: 230, b: 230)])
         tf.isSecureTextEntry = true
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +91,7 @@ class LoginController: UIViewController {
         button.setTitleColor(UIColor(r: 48,g: 89, b: 23), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+         button.addTarget(self, action: #selector(login_button_pressed), for: .touchUpInside)
         return button
     }()
     
@@ -110,6 +111,93 @@ class LoginController: UIViewController {
     @objc func handleSkipLogin() {
         let tabBarController = CustomTabBarController()
         present(tabBarController, animated: true, completion: nil)
+        
+    }
+    @objc func login_button_pressed () {
+        
+        if loginRegisterButton.currentTitle == "Register" {
+            print("register button pressed")
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, error) in
+                // ...
+//                guard let user = authResult?.user else {  return  }
+
+                if ((error) != nil) {
+                    let alertController = UIAlertController(title: "Error Registering account !", message:
+                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
+                        //run your function here
+                        let stayBarController = LoginController()
+                        self.present(stayBarController, animated: false, completion: nil)
+                    }))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                }
+                else  {
+                    
+                    let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
+                        "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
+                        //run your function here
+                        let loginBarController = LoginController()
+                        self.present(loginBarController, animated: true, completion: nil)
+                        
+                        print("loginBarController called")
+                        
+                        
+                    }))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                
+            }
+        }
+        else {
+            print("loging button pressed")
+            
+            Auth.auth().signIn(withEmail:  emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+                
+                
+                if ((error) != nil) {
+                    let alertController = UIAlertController(title: "Error Logging into account !", message:
+                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
+                        //run your function here
+//                        let errorloginBarController = LoginController()
+//                        self.present(errorloginBarController, animated: false, completion: nil)
+//
+//                        print("errorloginBarController called")
+                    }))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                }
+                else  {
+                    
+                    let alertController = UIAlertController(title: "Welcome!", message:
+                        "to freshlists!", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
+                        //run your function here
+                        let loginBarController = CustomTabBarController()
+                        self.present(loginBarController, animated: true, completion: nil)
+                        
+                        print("loginBarController called")
+            
+                        
+                    }))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                
+                
+                // ...
+            }
+
+        }
+        
+        
+        
+        
         
     }
     

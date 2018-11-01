@@ -2,33 +2,58 @@
 //  AppDelegate.swift
 //  FreshList
 //
-//  Created by Abhinav Kumar on 10/19/18.
-//  Copyright © 2018 ubiqteam7fall. All rights reserved.
+//  Created by Team7 on 10/19/18.
+//  Copyright © 2018 Abhinav Kumar. All rights reserved.
 //
 
 import UIKit
 import CoreData
-
+import Firebase
+struct defaultsKeys {
+    static let keyOne = "firstStringKey"
+    static let isAppAlreadyLaunchedOnce = false
+    
+    static let flags = "0"
+    
+}
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let defaults = UserDefaults.standard
+        FirebaseApp.configure()
+        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
+            print("App already launched")
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.makeKeyAndVisible()
+            window?.rootViewController = LoginController()
+            
+            // Get rid of shadow under navigation bar
+            UINavigationBar.appearance().shadowImage = UIImage()
+            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+            
+            // Change highlight color of tab bar buttons
+            UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
+            
+            return true
+        }
+        else{
+            
+            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
+            print("App launched first time")
+            let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "OnboardingControllerID") as UIViewController
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = initialViewControlleripad
+            self.window?.makeKeyAndVisible()
+            
+            return false
+            
+        }
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        window?.rootViewController = CustomTabBarController()
         
-        // Get rid of shadow under navigation bar
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-        
-        // Change highlight color of tab bar buttons
-        UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
-        
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

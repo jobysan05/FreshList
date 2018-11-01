@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  FreshList
+//  BarcodeScanner
 //
 //  Created by Joby Santhosh, Sebastian Macedonio on 7/14/17.
 //  Copyright © 2017 ubiqteam7fall. All rights reserved.
@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import AudioToolbox
+import Alamofire
+import SwiftyJSON
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
@@ -122,10 +124,29 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     func displayDetailsViewController(scannedCode: String) {
         let addItemShoppingController = AddToShoppingListViewController()
-        addItemShoppingController.nameTextField.text = scannedCode
-        // TODO: add custom go forward button to go back to add item page with name field filled
+        getBarData(scannedCode: scannedCode, addShoppingController: addItemShoppingController)
+        //        let barcodeDetailsController = BarcodeDetailsViewController()
+        //        barcodeDetailsController.scannedCode = scannedCode
         navigationController?.pushViewController(addItemShoppingController, animated: true)
-
+        //        present(detailsViewController, animated: true, completion: nil)
     }
     
+    func getBarData(scannedCode: String, addShoppingController: AddToShoppingListViewController){
+        let baseUrl = "https://api.upcitemdb.com/prod/trial/lookup?upc=\(scannedCode)"
+        Alamofire.request(baseUrl, method: .get).responseJSON { response in
+            if response.data != nil {
+                do {
+                    let json = try JSON(data: response.data!)
+                    let name = json["items"][0]["title"].string
+                    if name != nil {
+                        addShoppingController.nameTextField.text = name
+                    }
+                }
+                    
+                catch {
+                    print("error to call")
+                }
+            }
+        }
+    }
 }
