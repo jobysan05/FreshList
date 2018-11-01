@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AccountViewController: UIViewController {
     
@@ -52,6 +53,13 @@ class AccountViewController: UIViewController {
         
         logoutAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             // TODO: Add Firebase functionality to log out
+            let firebaseAuth = Auth.auth()
+            do {
+                print("loggin out")
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
             let loginController = LoginController()
             self.present(loginController, animated: true, completion: nil)
         }))
