@@ -363,9 +363,5 @@ class LoginController: UIViewController {
         skipLoginButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 30).isActive = true
     }
     
-    func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .lightContent
-    }
-    
 }
 
