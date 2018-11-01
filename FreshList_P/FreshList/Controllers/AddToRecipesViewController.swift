@@ -9,6 +9,8 @@
 // TODO: Add field to take in user pic, if no pic set pic to default picture.
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class AddToRecipesViewController: UIViewController {
     
@@ -124,6 +126,19 @@ class AddToRecipesViewController: UIViewController {
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
         // TODO: Add firebase functionality to save item to user ingredients table
+        let db = Firestore.firestore()
+        var ref: DocumentReference? = nil
+        ref = db.collection("FreshList_Add_Recipes").addDocument(data: [
+            "recipe_Name": recipeNameTextField.text!,
+            "recipe_Instructions": recipeInstructionsTextField.text!,
+            "recipe_Ingredients": ingredientTextField.text!
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
         self.navigationController?.popViewController(animated: true)
     }
     

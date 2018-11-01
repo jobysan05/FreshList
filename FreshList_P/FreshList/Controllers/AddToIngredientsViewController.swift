@@ -102,7 +102,6 @@ class AddToIngredientsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        FirebaseApp.configure()
         view.addSubview(inputsContainerView)
         
         setupView()

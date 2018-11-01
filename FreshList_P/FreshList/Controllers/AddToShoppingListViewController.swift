@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class AddToShoppingListViewController: UIViewController {
     
@@ -121,6 +123,19 @@ class AddToShoppingListViewController: UIViewController {
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
         // TODO: Add firebase functionality to save item to user ingredients table
+        let db = Firestore.firestore()
+        var ref: DocumentReference? = nil
+        ref = db.collection("Shopping_Lists").addDocument(data: [
+            "ingredient_Name": nameTextField.text!,
+            "amount": amountTextField.text!,
+            "units": unitTextField.text!
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
         self.popBack(toControllerType: ShoppingListViewController.self)
     }
     
@@ -136,6 +151,7 @@ class AddToShoppingListViewController: UIViewController {
     @objc private func handleBarcode() {
         let barcodeController = BarcodeScannerViewController()
         navigationController?.pushViewController(barcodeController, animated: true)
+        navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
     
     // Function to setup inputs container and text fields within
