@@ -21,7 +21,7 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
         lasagnaRecipe.briefDescription = "It's lasagna"
         
         var icecreamrecipe = Recipe()
-        icecreamrecipe.title = "Ice Creammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        icecreamrecipe.title = "This is a really long recipe name to show the lines wrap"
         icecreamrecipe.thumbnailImageString = "icecream_img"
         icecreamrecipe.briefDescription = "It's ice cream"
         
@@ -48,25 +48,19 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
                         let json = try JSON(data: response.data!)
                         
                         let number = json["count"]
-                        print("COUNT \(json["count"])")
+                        print("COUNT \(number)")
                         for i in 1...30 {
                             let name = json["recipes"][i]["title"].string
                             if name != nil {
+                                // API LIMIT REACHED. Must buy access or find another free API
                                 print(name!)
-                                let obj = RecipeCell()
-                                
-                               obj.recipeTitleLabel.text =  "SASASAS"
                             }
-                            
                         }
-                        
                     }
                     catch {
                         print("error to call")
                     }
-                    
                 }
-                
         }
     }
     

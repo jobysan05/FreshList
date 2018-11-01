@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class AddToIngredientsViewController: UIViewController {
     
@@ -100,7 +102,7 @@ class AddToIngredientsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        FirebaseApp.configure()
         view.addSubview(inputsContainerView)
         
         setupView()
@@ -140,6 +142,20 @@ class AddToIngredientsViewController: UIViewController {
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
         // TODO: Add firebase functionality to save item to user ingredients table
+        let db = Firestore.firestore()
+        var ref: DocumentReference? = nil
+        ref = db.collection("FreshList_Ingredients").addDocument(data: [
+            "Ingredient_name": nameTextField.text!,
+            "Quantity": amountTextField.text!,
+            "Category": "Unknown",
+            "Expiry_date": expiryDateTextField.text!
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
         self.navigationController?.popViewController(animated: true)
     }
     

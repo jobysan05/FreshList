@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class IngredientsViewController: UITableViewController {
 
     // IDK tf this is for but you need it for the table view to show up properly apparently
@@ -49,10 +50,12 @@ class IngredientsViewController: UITableViewController {
     
     // Function called by addItemButton to show AddItemView
     @objc private func handleAddItem() {
+        // Configuring UI for addItem
         let addIngredientController = AddToIngredientsViewController()
         navigationController?.pushViewController(addIngredientController, animated: true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
+        
     }
     
     // Function to set up search button in navigation bar
