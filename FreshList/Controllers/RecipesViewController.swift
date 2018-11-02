@@ -141,12 +141,12 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
         cell.recipe = recipes[indexPath.item]
         
         // Configure the cell...
-        var querys = "chicken breast"
-        let replacedquery = querys.replacingOccurrences(of: " ", with: "%20",
-                                                        options: NSString.CompareOptions.literal, range:nil)
-        
-        
-        getData(query:replacedquery, pageNumber:3)
+//        var querys = "chicken breast"
+//        let replacedquery = querys.replacingOccurrences(of: " ", with: "%20",
+//                                                        options: NSString.CompareOptions.literal, range:nil)
+//        
+//        
+//        getData(query:replacedquery, pageNumber:3)
         print("recipe_data1recipe_data1")
         
         return cell    }

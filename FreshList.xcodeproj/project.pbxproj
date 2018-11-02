@@ -45,7 +45,7 @@
 		4AF6A599218A80A400252BA0 /* Slide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
 		4AF6A59D218A811F00252BA0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A7F278CD888DCDF3CB0EC6D7 /* Pods-FreshList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FreshList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FreshList/Pods-FreshList.debug.xcconfig"; sourceTree = "<group>"; };
-		C31B0F25218A892200FD5278 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnboardingViewController.swift; path = ../../../../../../Downloads/OnboardingViewController.swift; sourceTree = "<group>"; };
+		C31B0F25218A892200FD5278 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C31EC08A217CFE950085A255 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3AE10FD2179C4A2000F6EDA /* FreshList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreshList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AE11002179C4A2000F6EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };

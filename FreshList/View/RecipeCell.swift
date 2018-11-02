@@ -49,7 +49,7 @@ class RecipeCell: BaseCell {
     
     let favoriteButton: UIButton = {
         let button = UIButton(type: .custom)
-        var unselected = UIImage(named: "emptyheart")
+        var unselected = UIImage(named: "")
         unselected = unselected?.maskWithColor(color: UIColor(r: 128, g: 171, b: 103))
         button.setImage(unselected, for: .normal)
         return button
