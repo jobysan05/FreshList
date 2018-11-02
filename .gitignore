@@ -5,20 +5,17 @@
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-# SHIT I JUST ADDED BEGIN
+
 # Xcode workspace files to ignore
-#.DS_Store
-#.Trashes
-#*.swp
+.DS_Store
+.Trashes
+*.swp
 #*.lock
 #*~.nib
-# Xcode build files
-#DerivedData/
-#build/
 ## Build generated
-#build/
-#DerivedData/
-# SHIT I JUST ADDED END
+build/
+DerivedData/
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
