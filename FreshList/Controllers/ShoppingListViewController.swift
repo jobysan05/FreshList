@@ -33,8 +33,10 @@ class ShoppingListViewController: UITableViewController {
     private func setupNavigationBarItems() {
         // TODO: Add search bar and appropriate functionalities. Want to be able to add items quickly searched from our DB
         let addItemButton = setupAddItemButton()
+        let barcodeButton = setupBarcodeButton()
         let searchButton = setupSearchButton()
-        navigationItem.rightBarButtonItems = [addItemButton, searchButton]
+        navigationItem.rightBarButtonItems = [addItemButton, barcodeButton]
+        navigationItem.leftBarButtonItem = searchButton
     }
     
     // Function to set up add item button in navigation bar
@@ -49,6 +51,23 @@ class ShoppingListViewController: UITableViewController {
     @objc private func handleAddItem() {
         let addShoppingItemController = AddToShoppingListViewController()
         navigationController?.pushViewController(addShoppingItemController, animated: true)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = UIColor.white
+    }
+    
+    // Function to set up barcode button in navigation bar
+    private func setupBarcodeButton() -> UIBarButtonItem {
+        let barcodeImage = UIImage(named: "barcode")
+        let barcodeButton = UIBarButtonItem(image: barcodeImage, style: .plain, target: self, action: #selector(handleBarcode))
+        barcodeButton.tintColor = UIColor.white
+        return barcodeButton
+    }
+    
+    // Function called to open barcode scanner
+    @objc private func handleBarcode() {
+        let barcodeController = BarcodeScannerViewController()
+        navigationController?.pushViewController(barcodeController, animated: true)
+//        self.present(barcodeController, animated: true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }

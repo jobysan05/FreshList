@@ -49,11 +49,22 @@ class RecipeCell: BaseCell {
     
     let favoriteButton: UIButton = {
         let button = UIButton(type: .custom)
-        var unselected = UIImage(named: "")
-        unselected = unselected?.maskWithColor(color: UIColor(r: 128, g: 171, b: 103))
-        button.setImage(unselected, for: .normal)
+        var emptyHeartImg = UIImage(named: "emptyheart")
+        var fullHeartImg = UIImage(named: "fullheart")
+        let lightGreen = UIColor(r: 128, g: 171, b: 103)
+        emptyHeartImg = emptyHeartImg?.maskWithColor(color: lightGreen)
+        fullHeartImg = fullHeartImg?.maskWithColor(color: lightGreen)
+        button.setImage(emptyHeartImg, for: .normal)
+        button.setImage(fullHeartImg, for: .selected)
+        button.imageView?.contentMode = .scaleAspectFill
+        button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
         return button
     }()
+    // TODO: Figure this shit out
+    @objc private func handleFavorite() {
+        print(favoriteButton.isSelected)
+        favoriteButton.isSelected = !favoriteButton.isSelected
+    }
     
     let separatorView: UIView = {
         let view = UIView()

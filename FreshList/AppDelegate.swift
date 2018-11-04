@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
             
             // Change highlight color of tab bar buttons
-            UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
+            UITabBar.appearance().tintColor = UIColor(r: 48,g: 89, b: 23)
             
             return true
         }

@@ -65,7 +65,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         slide5.labelTitle.text = "FreshList is barcode Friendly!!"
         slide5.labelDesc.text = "Freshliast helps you to scan bar codes of items purchased and automatically fetches the item details!"
         
-        let slide6:Slide = Bundle.main.loadNibNamed("Slide", owner: self, options: nil)?.first as! Slide
+        let _:Slide = Bundle.main.loadNibNamed("Slide", owner: self, options: nil)?.first as! Slide
         slide5.imageView.image = UIImage(named: "icons8-detective-480")
         slide5.labelTitle.text = "FreshList is smart!"
         slide5.labelDesc.text = "Freshlist helps you to detect object incase if the barcode tag is not present in an item!"
@@ -173,17 +173,6 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
             // Change highlight color of tab bar buttons
             UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
             
-            // Change font color in status bar to white and make background darker
-            UIApplication.shared.statusBarStyle = .lightContent
-            let statusBarBackground = UIView()
-            statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
-            window?.addSubview(statusBarBackground)
-            window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
-            window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
-            
-                        
-            
-            
         }
        
         
@@ -218,34 +207,13 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
             let red: CGFloat = (toRed - fromRed) * percentage + fromRed
             let green: CGFloat = (toGreen - fromGreen) * percentage + fromGreen
             let blue: CGFloat = (toBlue - fromBlue) * percentage + fromBlue
-            let alpha: CGFloat = (toAlpha - fromAlpha) * percentage + fromAlpha
+//            let alpha: CGFloat = (toAlpha - fromAlpha) * percentage + fromAlpha
             
             // return the fade colour
             return UIColor(r: red, g: green, b: blue)
         }
     }
-//        else if(percentOffset.x > 1 ) {
-//            slides[4].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
-//            window = UIWindow(frame: UIScreen.main.bounds)
-//            window?.makeKeyAndVisible()
-//            window?.rootViewController = CustomTabBarController()
-//
-//            // Get rid of shadow under navigation bar
-//            UINavigationBar.appearance().shadowImage = UIImage()
-//            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-//
-//            // Change highlight color of tab bar buttons
-//            UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
-//
-//            // Change font color in status bar to white and make background darker
-//            UIApplication.shared.statusBarStyle = .lightContent
-//            let statusBarBackground = UIView()
-//            statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
-//            window?.addSubview(statusBarBackground)
-//            window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
-//            window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
-//
-//        }
+
         
         
 }

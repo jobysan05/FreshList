@@ -30,39 +30,15 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        fetchRecipes(query:"chicken%20breast", pageNumber:2)
         setupNavigationBar(title: "Recipes")
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(RecipeCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         setupMenuBar()
-        getData(query:"chicken%20breast", pageNumber:2)
-
     }
-    func getData(query: String,pageNumber: Int) {
-        let baseUrl = "https://www.food2fork.com/api/search?key=2a6e206cebcc3cde618dc5ca97b7e7b8&q=\(query)&page=\(pageNumber)"
-        Alamofire.request(baseUrl, method: .get)
-            .responseJSON { response in
-                if response.data != nil {
-                    do {
-                        let json = try JSON(data: response.data!)
-                        
-                        let number = json["count"]
-                        print("COUNT \(number)")
-                        for i in 1...30 {
-                            let name = json["recipes"][i]["title"].string
-                            if name != nil {
-                                // API LIMIT REACHED. Must buy access or find another free API
-                                print(name!)
-                            }
-                        }
-                    }
-                    catch {
-                        print("error to call")
-                    }
-                }
-        }
-    }
+    
     
     // BEGIN setup of menu bar
     let menuBar: MenuBar = {
@@ -91,7 +67,8 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     private func setupNavigationBarItems() {
         let addButton = setupAddRecipeButton()
         let searchButton = setupSearchButton()
-        navigationItem.rightBarButtonItems = [addButton, searchButton]
+        navigationItem.rightBarButtonItem = addButton
+        navigationItem.leftBarButtonItem = searchButton
     }
     
     // Function to set up add item button in navigation bar
@@ -139,16 +116,13 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RecipeCell
         cell.recipe = recipes[indexPath.item]
-        
-        // Configure the cell...
 //        var querys = "chicken breast"
 //        let replacedquery = querys.replacingOccurrences(of: " ", with: "%20",
 //                                                        options: NSString.CompareOptions.literal, range:nil)
 //        
 //        
 //        getData(query:replacedquery, pageNumber:3)
-        print("recipe_data1recipe_data1")
-        
+//        print("recipe_data1recipe_data1")
         return cell    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -36,7 +36,8 @@ class IngredientsViewController: UITableViewController {
     private func setupNavigationBarItems() {
         let addButton = setupAddItemButton()
         let searchButton = setupSearchButton()
-        navigationItem.rightBarButtonItems = [addButton, searchButton]
+        navigationItem.rightBarButtonItem = addButton
+        navigationItem.leftBarButtonItem = searchButton
         
     }
     
