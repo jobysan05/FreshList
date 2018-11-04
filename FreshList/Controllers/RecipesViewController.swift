@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
 
 class RecipesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -31,12 +29,12 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 //        fetchRecipes(query:"chicken%20breast", pageNumber:2)
-        setupNavigationBar(title: "Recipes")
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(RecipeCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         setupMenuBar()
+        setupNavigationBar(title: "Recipes")
     }
     
     
@@ -48,9 +46,19 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     }()
     
     private func setupMenuBar() {
+        navigationController?.hidesBarsOnSwipe = true
+        
+        let greenView = UIView()
+        greenView.backgroundColor = UIColor(r: 128, g: 171, b: 103)
+        view.addSubview(greenView)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: greenView)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: greenView)
+        
         view.addSubview(menuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:|[v0(50)]", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
+        
+        menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
     // END setup of menu bar
     // Function called to set up Navigation Bar

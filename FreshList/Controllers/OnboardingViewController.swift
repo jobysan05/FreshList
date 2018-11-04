@@ -2,8 +2,8 @@
 //  OnboardingViewController.swift
 //  FreshList
 //
-//  Created by Team7 on 10/30/18.
-//  Copyright © 2017 Team7. All rights reserved.
+//  Created by SaiKrishna Ramalingam on 10/30/18.
+//  Copyright © 2017 ubiqteam7fall. All rights reserved.
 //
 
 import UIKit

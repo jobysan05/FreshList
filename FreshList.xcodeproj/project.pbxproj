@@ -36,6 +36,7 @@
 		C3C5C6FE217FC916005D4C64 /* AddToRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C5C6FD217FC916005D4C64 /* AddToRecipesViewController.swift */; };
 		C3C5C70821801D58005D4C64 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C5C70721801D58005D4C64 /* Extensions.swift */; };
 		C3CA0FBA21824D7800A98A43 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0FB921824D7800A98A43 /* AccountViewController.swift */; };
+		C3E7DC41218F7F8E002D6C62 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E7DC40218F7F8E002D6C62 /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		C3C5C6FD217FC916005D4C64 /* AddToRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToRecipesViewController.swift; sourceTree = "<group>"; };
 		C3C5C70721801D58005D4C64 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C3CA0FB921824D7800A98A43 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		C3E7DC40218F7F8E002D6C62 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 		C3AE10FF2179C4A2000F6EDA /* FreshList */ = {
 			isa = PBXGroup;
 			children = (
+				C3E7DC3F218F7F6C002D6C62 /* APIService */,
 				C3B20296218A56E900FAFFCC /* Model */,
 				C3C5C7032180174B005D4C64 /* View */,
 				C31EC089217CFE510085A255 /* Controllers */,
@@ -187,6 +190,14 @@
 				C3C5C70721801D58005D4C64 /* Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C3E7DC3F218F7F6C002D6C62 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				C3E7DC40218F7F8E002D6C62 /* APIService.swift */,
+			);
+			path = APIService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +368,7 @@
 				C3C12A7B2186E6EF008FE026 /* BaseCell.swift in Sources */,
 				C3AE11012179C4A2000F6EDA /* AppDelegate.swift in Sources */,
 				C3B202912188CB3300FAFFCC /* AddToShoppingListViewController.swift in Sources */,
+				C3E7DC41218F7F8E002D6C62 /* APIService.swift in Sources */,
 				C3B20298218A56FA00FAFFCC /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

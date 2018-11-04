@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  FreshList
 //
-//  Created by Team7 on 10/19/18.
-//  Copyright © 2018 Abhinav Kumar. All rights reserved.
+//  Created by Abhinav Kumar on 10/19/18.
+//  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
 import UIKit
@@ -36,6 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Change highlight color of tab bar buttons
             UITabBar.appearance().tintColor = UIColor(r: 48,g: 89, b: 23)
+            
+            // Change font color in status bar to white and make background darker
+            var preferredStatusBarStyle: UIStatusBarStyle {
+                return .lightContent
+            }
+            let statusBarBackground = UIView()
+            statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
+            window?.addSubview(statusBarBackground)
+            window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
+            window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
             
             return true
         }
