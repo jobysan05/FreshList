@@ -57,14 +57,9 @@ class RecipeCell: BaseCell {
         button.setImage(emptyHeartImg, for: .normal)
         button.setImage(fullHeartImg, for: .selected)
         button.imageView?.contentMode = .scaleAspectFill
-        button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
         return button
     }()
-    // TODO: Figure this shit out
-    @objc private func handleFavorite() {
-        print(favoriteButton.isSelected)
-        favoriteButton.isSelected = !favoriteButton.isSelected
-    }
+    
     
     let separatorView: UIView = {
         let view = UIView()
