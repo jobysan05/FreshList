@@ -12,36 +12,30 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     
     let cellID = "cellID"
     
-    var recipes: [Recipe] = {
-        var lasagnaRecipe = Recipe()
-        lasagnaRecipe.title = "Lasagna"
-        lasagnaRecipe.thumbnailImageString = "lasagna_img"
-        lasagnaRecipe.briefDescription = "It's lasagna"
-        
-        var icecreamrecipe = Recipe()
-        icecreamrecipe.title = "This is a really long recipe name to show the lines wrap"
-        icecreamrecipe.thumbnailImageString = "icecream_img"
-        icecreamrecipe.briefDescription = "It's ice cream"
-        
-        return [lasagnaRecipe, icecreamrecipe]
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        fetchRecipes(query:"chicken%20breast", pageNumber:2)
-        collectionView?.backgroundColor = UIColor.white
-        collectionView?.register(RecipeCell.self, forCellWithReuseIdentifier: cellID)
-        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        setupCollectionView()
         setupMenuBar()
         setupNavigationBar(title: "Recipes")
     }
-    
+    private func setupCollectionView() {
+        
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .horizontal
+            flowLayout.minimumLineSpacing = 0
+        }
+        
+        collectionView?.backgroundColor = UIColor.white
+        collectionView?.register(RecipeFeedCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView?.isPagingEnabled = true
+    }
     
     // BEGIN setup of menu bar
-    let menuBar: MenuBar = {
-        let menubar = MenuBar()
-        
+    lazy var recipesMenuBar: RecipesMenuBar = {
+        let menubar = RecipesMenuBar()
+        menubar.recipesViewController = self
         return menubar
     }()
     
@@ -54,13 +48,19 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: greenView)
         view.addConstraintsWithFormat(format: "V:[v0(50)]", views: greenView)
         
-        view.addSubview(menuBar)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
+        view.addSubview(recipesMenuBar)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: recipesMenuBar)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: recipesMenuBar)
         
-        menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        recipesMenuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        recipesMenuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 3
+    }
+    
     // END setup of menu bar
+    
     // Function called to set up Navigation Bar
     private func setupNavigationBar(title: String) {
         navigationItem.title = title
@@ -68,7 +68,6 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = UIColor(r: 128, g: 171, b: 103)
-        // Call function to set up buttons
         setupNavigationBarItems()
     }
     // Function called to set up items in Navigation Bar
@@ -114,46 +113,32 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     // Function called to search shopping list
     @objc private func handleSearch() {
         // TODO: Add search functionality
+        scrollToMenuIndex(menuIndex: 1)
+    }
+    
+    func scrollToMenuIndex(menuIndex: Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView?.scrollToItem(at: indexPath, at: [], animated: true)
     }
     
     // BEGIN configuration of cells in collectionView
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RecipeCell
-        cell.recipe = recipes[indexPath.item]
-        cell.favoriteButton.tag = indexPath.row
-        cell.favoriteButton.addTarget(self, action: #selector(handleFavorite(sender:)), for: .touchUpInside)
-//        var querys = "chicken breast"
-//        let replacedquery = querys.replacingOccurrences(of: " ", with: "%20",
-//                                                        options: NSString.CompareOptions.literal, range:nil)
-//        
-//        
-//        getData(query:replacedquery, pageNumber:3)
-//        print("recipe_data1recipe_data1")
-        return cell    }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        return cell
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = targetContentOffset.pointee.x / view.frame.width
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        recipesMenuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (view.frame.width - 32) * (9/16)
-        return CGSize(width: view.frame.width, height: height + 84)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    // END configuration for cells in collectionView
-    
-    // Function to add
-    @objc private func handleFavorite(sender: UIButton) {
-        if (sender.isSelected == true) {
-            sender.isSelected = false
-            // TODO: Add functionality to remove the recipe from that user's favorites list
-        } else {
-            sender.isSelected = true
-            // TODO: Add functionality to add the recipe to that user's favorites list
-        }
-        print(sender.isSelected)
+        return CGSize(width: view.frame.width, height: view.frame.height - 100)
     }
 }

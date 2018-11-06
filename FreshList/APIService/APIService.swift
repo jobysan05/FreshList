@@ -33,7 +33,7 @@ class APIService: NSObject {
         }
     }
     
-    func fetchRecipes(query: String,pageNumber: Int) {
+    func fetchRecipes(query: String,pageNumber: Int) { // , completion: ([Recipe]) -> ()
         let baseUrl = "https://www.food2fork.com/api/search?key=2a6e206cebcc3cde618dc5ca97b7e7b8&q=\(query)&page=\(pageNumber)"
         Alamofire.request(baseUrl, method: .get)
             .responseJSON { response in

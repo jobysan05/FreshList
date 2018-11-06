@@ -1,5 +1,5 @@
 //
-//  RecipeMenuBar.swift
+//  RecipesMenuBar.swift
 //  FreshList
 //
 //  Created by Abhinav Kumar on 10/29/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class RecipesMenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let cellID = "cellID"
     let menuBarTitles = ["My Recipes", "Explore", "Favorites"]
@@ -20,6 +20,8 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         cv.delegate = self
         return cv
     }()
+    
+    var recipesViewController: RecipesViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,11 +53,13 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Animate horizontal bar movement when selecting different menu bar tabs
-        let x = CGFloat(indexPath.item) * frame.width / 3
-        horizontalBarLeftAnchorConstraint?.constant = x
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
+//        let x = CGFloat(indexPath.item) * frame.width / 3
+//        horizontalBarLeftAnchorConstraint?.constant = x
+//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//            self.layoutIfNeeded()
+//        }, completion: nil)
+        
+        recipesViewController?.scrollToMenuIndex(menuIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

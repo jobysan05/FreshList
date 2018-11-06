@@ -25,7 +25,7 @@ class ShoppingListViewController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = UIColor(r: 128, g: 171, b: 103)
-        // Call function to set up buttons
+
         setupNavigationBarItems()
     }
     
@@ -41,7 +41,6 @@ class ShoppingListViewController: UITableViewController {
     
     // Function to set up add item button in navigation bar
     private func setupAddItemButton() -> UIBarButtonItem {
-        // Configuration for add ingredient button
         let addItemButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(handleAddItem))
         addItemButton.tintColor = UIColor.white
         return addItemButton

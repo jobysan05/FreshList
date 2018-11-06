@@ -37,11 +37,6 @@ class BarcodeDetailsViewController: UIViewController {
         scanButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     let codeLabel:UILabel = {
         let codeLabel = UILabel()
         codeLabel.textAlignment = .center

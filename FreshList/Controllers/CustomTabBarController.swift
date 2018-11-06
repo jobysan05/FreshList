@@ -25,7 +25,6 @@ class CustomTabBarController: UITabBarController {
         topBorder.backgroundColor = UIColor(r: 221, g: 221, b: 221).cgColor
         tabBar.clipsToBounds = true
         tabBar.layer.addSublayer(topBorder)
-        // Add tab buttons to tab bar
         setupTabBarItems()
     }
 
