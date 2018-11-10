@@ -40,10 +40,9 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     }()
     
     private func setupMenuBar() {
-        navigationController?.hidesBarsOnSwipe = true
-        
         let greenView = UIView()
         greenView.backgroundColor = UIColor(r: 128, g: 171, b: 103)
+        
         view.addSubview(greenView)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: greenView)
         view.addConstraintsWithFormat(format: "V:[v0(50)]", views: greenView)

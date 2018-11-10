@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let defaults = UserDefaults.standard
+        // Initialize Firebase within app
         FirebaseApp.configure()
         if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
             print("App already launched")

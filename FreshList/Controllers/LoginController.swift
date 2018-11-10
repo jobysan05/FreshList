@@ -93,9 +93,50 @@ class LoginController: UIViewController {
         button.setTitleColor(UIColor(r: 48,g: 89, b: 23), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
-         button.addTarget(self, action: #selector(login_button_pressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc func loginButtonPressed () {
+        if loginRegisterButton.currentTitle == "Register" {
+            print("register button pressed")
+            guard let email = emailTextField.text, let password = passwordTextField.text else {
+                print("Form not vaild")
+                return
+            }
+            Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+                if ((error) != nil) {
+                    let alertController = UIAlertController(title: "Error Registering account !", message:
+                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                } else  {
+                    let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
+                        "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: { action in
+                        print("loginBarController called")
+                        self.loginRegisterSegmentedControl.selectedSegmentIndex = 0
+                        self.handleLoginRegisterToggle()
+                        self.passwordTextField.text! = ""
+                    }))
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        } else {
+            print("loging button pressed")
+            Auth.auth().signIn(withEmail:  emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+                if ((error) != nil) {
+                    let alertController = UIAlertController(title: "Error Logging into account !", message:
+                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    let homeScreenController = CustomTabBarController()
+                    self.present(homeScreenController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
     // Configure skip login button
     let skipLoginButton: UIButton = {
@@ -115,93 +156,7 @@ class LoginController: UIViewController {
         present(tabBarController, animated: true, completion: nil)
         
     }
-    @objc func login_button_pressed () {
-        
-        if loginRegisterButton.currentTitle == "Register" {
-            print("register button pressed")
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, error) in
-                // ...
-//                guard let user = authResult?.user else {  return  }
-
-                if ((error) != nil) {
-                    let alertController = UIAlertController(title: "Error Registering account !", message:
-                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
-                        //run your function here
-                        let stayBarController = LoginController()
-                        self.present(stayBarController, animated: false, completion: nil)
-                    }))
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    
-                }
-                else  {
-                    
-                    let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
-                        "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
-                        //run your function here
-                        let loginBarController = LoginController()
-                        self.present(loginBarController, animated: true, completion: nil)
-                        
-                        print("loginBarController called")
-                        
-                        
-                    }))
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                }
-                
-            }
-        }
-        else {
-            print("loging button pressed")
-            
-            Auth.auth().signIn(withEmail:  emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-                
-                
-                if ((error) != nil) {
-                    let alertController = UIAlertController(title: "Error Logging into account !", message:
-                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
-                        //run your function here
-//                        let errorloginBarController = LoginController()
-//                        self.present(errorloginBarController, animated: false, completion: nil)
-//
-//                        print("errorloginBarController called")
-                    }))
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    
-                }
-                else  {
-                    
-                    let alertController = UIAlertController(title: "Welcome!", message:
-                        "to freshlists!", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
-                        //run your function here
-                        let loginBarController = CustomTabBarController()
-                        self.present(loginBarController, animated: true, completion: nil)
-                        
-                        print("loginBarController called")
-            
-                        
-                    }))
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                }
-                
-                
-                // ...
-            }
-
-        }
-        
-        
-        
-        
-        
-    }
+    
     
     // Confiure login/register toggle
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
