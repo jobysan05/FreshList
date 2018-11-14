@@ -11,10 +11,10 @@
 		4AF6A598218A809700252BA0 /* Slide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6A597218A809700252BA0 /* Slide.xib */; };
 		4AF6A59A218A80A500252BA0 /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6A599218A80A400252BA0 /* Slide.swift */; };
 		4AF6A59E218A811F00252BA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6A59D218A811F00252BA0 /* Main.storyboard */; };
-		540E49EC21964C5B00CDD8C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 540E49EB21964C5B00CDD8C3 /* GoogleService-Info.plist */; };
 		C31B0F26218A892200FD5278 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31B0F25218A892200FD5278 /* OnboardingViewController.swift */; };
 		C31EC08B217CFE950085A255 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31EC08A217CFE950085A255 /* LoginController.swift */; };
 		C32C2B32219204C500ED5806 /* RecipeFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C2B31219204C500ED5806 /* RecipeFeedCell.swift */; };
+		C365EC0D219CC4EA000C97CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C365EC0C219CC4E9000C97CD /* GoogleService-Info.plist */; };
 		C3AE11012179C4A2000F6EDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE11002179C4A2000F6EDA /* AppDelegate.swift */; };
 		C3AE11032179C4A2000F6EDA /* IngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE11022179C4A2000F6EDA /* IngredientsViewController.swift */; };
 		C3AE11092179C4A2000F6EDA /* FreshList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3AE11072179C4A2000F6EDA /* FreshList.xcdatamodeld */; };
@@ -46,11 +46,11 @@
 		4AF6A597218A809700252BA0 /* Slide.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Slide.xib; sourceTree = "<group>"; };
 		4AF6A599218A80A400252BA0 /* Slide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
 		4AF6A59D218A811F00252BA0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		540E49EB21964C5B00CDD8C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A7F278CD888DCDF3CB0EC6D7 /* Pods-FreshList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FreshList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FreshList/Pods-FreshList.debug.xcconfig"; sourceTree = "<group>"; };
 		C31B0F25218A892200FD5278 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C31EC08A217CFE950085A255 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C32C2B31219204C500ED5806 /* RecipeFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFeedCell.swift; sourceTree = "<group>"; };
+		C365EC0C219CC4E9000C97CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3AE10FD2179C4A2000F6EDA /* FreshList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreshList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AE11002179C4A2000F6EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3AE11022179C4A2000F6EDA /* IngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsViewController.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 				4AF6A59D218A811F00252BA0 /* Main.storyboard */,
 				C3AE110F2179C4A2000F6EDA /* Info.plist */,
 				C3AE11072179C4A2000F6EDA /* FreshList.xcdatamodeld */,
-				540E49EB21964C5B00CDD8C3 /* GoogleService-Info.plist */,
+				C365EC0C219CC4E9000C97CD /* GoogleService-Info.plist */,
 			);
 			path = FreshList;
 			sourceTree = "<group>";
@@ -265,7 +265,7 @@
 			files = (
 				4AF6A598218A809700252BA0 /* Slide.xib in Resources */,
 				4AF6A59E218A811F00252BA0 /* Main.storyboard in Resources */,
-				540E49EC21964C5B00CDD8C3 /* GoogleService-Info.plist in Resources */,
+				C365EC0D219CC4EA000C97CD /* GoogleService-Info.plist in Resources */,
 				C3AE110E2179C4A2000F6EDA /* LaunchScreen.storyboard in Resources */,
 				C3AE110B2179C4A2000F6EDA /* Assets.xcassets in Resources */,
 			);
