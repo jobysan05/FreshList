@@ -2,7 +2,6 @@
 //  CustomTabBarController.swift
 //  FreshList
 //
-//  Created by Abhinav Kumar on 10/22/18.
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 

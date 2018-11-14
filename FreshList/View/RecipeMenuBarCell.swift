@@ -2,7 +2,6 @@
 //  RecipeMenuBarCell.swift
 //  FreshList
 //
-//  Created by Abhinav Kumar on 10/29/18.
 //  Copyright © 2018 Aubiqteam7fall. All rights reserved.
 //
 

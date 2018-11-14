@@ -2,7 +2,6 @@
 //  IngredientsViewController.swift
 //  FreshList
 //
-//  Created by Abhinav Kumar on 10/19/18.
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 

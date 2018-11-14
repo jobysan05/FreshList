@@ -2,7 +2,6 @@
 //  DetailsViewController.swift
 //  FreshList
 //
-//  Created by Joby Santhosh, Sebastian Macedonio on 7/29/17.
 //  Copyright © 2017 ubiqteam7fall. All rights reserved.
 //
 

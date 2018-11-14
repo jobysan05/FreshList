@@ -2,7 +2,6 @@
 //  ViewController.swift
 //  BarcodeScanner
 //
-//  Created by Joby Santhosh, Sebastian Macedonio on 7/14/17.
 //  Copyright © 2017 ubiqteam7fall. All rights reserved.
 //
 

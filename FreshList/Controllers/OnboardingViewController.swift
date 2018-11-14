@@ -2,7 +2,6 @@
 //  OnboardingViewController.swift
 //  FreshList
 //
-//  Created by SaiKrishna Ramalingam on 10/30/18.
 //  Copyright © 2017 ubiqteam7fall. All rights reserved.
 //
 

@@ -2,8 +2,7 @@
 //  AddToShoppingListViewController.swift
 //  FreshList
 //
-//  Created by Abhinav Kumar on 10/30/18.
-//  Copyright © 2018 Aubiqteam7fall. All rights reserved.
+//  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
 import UIKit
