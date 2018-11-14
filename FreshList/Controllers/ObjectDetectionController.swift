@@ -1,6 +1,5 @@
 
-//  ViewController.swift
-//  SmartCameraLBTA
+//  ObjectDetectController.swift
 // Created by Team 7
 
 import UIKit
