@@ -11,6 +11,9 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+// TODO: add protocol/delegate functionality for firebase auth list
+// TODO: add protocol/delegate functionality for adding items to RecipesViewController user recipes list.
+
 class AddToRecipesViewController: UIViewController {
     
     // Configure inputs container

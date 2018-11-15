@@ -5,6 +5,16 @@
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
+// TODO: Add protocol/delegate functionality for firebase auth
+// TODO: Add firebase DB access functionalities
+// TODO: Add protocol/delegate functionality for adding items to ShoppingListViewController user shopping list.
+// TODO: Add functionality to check DB if user has required ingredients
+// TODO: Add functionalities to add/retrieve recipes from DB
+// TODO: Finish up API query functionalities
+// TODO: Finish up Favorites list functionalities
+    // Maybe just save all the data about a favorite recipe to the user's favorite recipes table.
+    // Or just save the link to that and load it every time by querying API.
+
 import UIKit
 
 class RecipesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {

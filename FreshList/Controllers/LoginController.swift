@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+// TODO: Add scrollable view. (for landscape if Palidis cares about autolayout
+
 class LoginController: UIViewController {
     // BEGIN Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     // Configure Logo
@@ -123,6 +125,7 @@ class LoginController: UIViewController {
             }
         } else {
             print("loging button pressed")
+            // TODO: add functionality to save username (and maybe email?) to pass through protocol/delegate
             Auth.auth().signIn(withEmail:  emailTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if ((error) != nil) {
                     let alertController = UIAlertController(title: "Error Logging into account !", message:

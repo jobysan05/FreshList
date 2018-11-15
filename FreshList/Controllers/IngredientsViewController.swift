@@ -5,12 +5,17 @@
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
+// TODO: Add protocol/delegate functionality for firebase auth.
+// TODO: Add Firebase DB access functionalities.
+// TODO: Add functionalities to add/retrieve items from DB.
+// TODO: Add scrollable view.
+// TODO: Add functionality to sort items into their categories.
+
 import UIKit
 
 
 class IngredientsViewController: UITableViewController {
 
-    // IDK tf this is for but you need it for the table view to show up properly apparently
     let cellID = "cellID"
     
     override func viewDidLoad() {

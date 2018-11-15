@@ -9,6 +9,10 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+// TODO: add protocol/delegate functionality for firebase auth 
+// TODO: add protocol/delegate functionality for adding item to ShoppingListViewController user list.
+
+
 class AddToShoppingListViewController: UIViewController {
     
     // Configure inputs container

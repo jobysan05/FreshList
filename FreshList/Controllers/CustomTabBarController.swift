@@ -5,6 +5,8 @@
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
+// TODO: Maybe add delegate functionality for firebase user auth
+
 import UIKit
 
 class CustomTabBarController: UITabBarController {
@@ -33,7 +35,7 @@ class CustomTabBarController: UITabBarController {
         // Shopping List Tab Button
         let shoppingListController = ShoppingListViewController()
         let shoppingListNavigationController = UINavigationController(rootViewController: shoppingListController)
-        shoppingListNavigationController.title = "Shopping List"
+        shoppingListNavigationController.title = "Shopping"
         shoppingListNavigationController.tabBarItem.image = UIImage(named: "shoppinglisticon")
         
         // Ingredients Tab Button

@@ -9,6 +9,11 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+// TODO: add protocol/delegate functionality for firebase auth
+// TODO: add protocol/delegate functionality for adding item to IngredientsViewController user list.
+// TODO: Figure out how to get rid of whitespace
+    // Maybe make this view show up as a pop up on top of ingredients like in Out Of Milk when you click on item details for an item.
+
 class AddToIngredientsViewController: UIViewController {
     
     // Configure inputs container

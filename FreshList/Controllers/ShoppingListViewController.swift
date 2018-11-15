@@ -5,6 +5,14 @@
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
+// TODO: Add protocol/delegate functionality for firebase auth
+// TODO: Add protocol/delegate functionality for adding item to ingredients list
+// TODO: Add functionalities to add/retreive items from DB
+// TODO: Add scrollable view.
+// TODO: Add functionality to sort items into their categories.
+// TODO: Add functionality to be able to check off items, then add those items to ingredients list
+// TODO: Add 
+
 import UIKit
 
 class ShoppingListViewController: UITableViewController {

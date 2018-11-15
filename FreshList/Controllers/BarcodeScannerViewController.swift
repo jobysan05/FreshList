@@ -11,6 +11,8 @@ import AudioToolbox
 import Alamofire
 import SwiftyJSON
 
+// TODO: Add landscape auto layout functionality (if Palidis cares).
+
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     var captureDevice:AVCaptureDevice?
@@ -117,19 +119,16 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         captureSession?.stopRunning()
         
         // Call the function which performs navigation and pass the code string value we just detected
-        displayDetailsViewController(scannedCode: stringCodeValue)
+        displayaddItemShoppingViewController(scannedCode: stringCodeValue)
         
     }
     
-    func displayDetailsViewController(scannedCode: String) {
+    func displayaddItemShoppingViewController(scannedCode: String) {
         let addItemShoppingController = AddToShoppingListViewController()
         getBarData(scannedCode: scannedCode, addShoppingController: addItemShoppingController)
         navigationController?.pushViewController(addItemShoppingController, animated: true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
-//        let barcodeDetailsController = BarcodeDetailsViewController()
-//        barcodeDetailsController.scannedCode = scannedCode
-//        present(detailsViewController, animated: true, completion: nil)
     }
     
     func getBarData(scannedCode: String, addShoppingController: AddToShoppingListViewController){

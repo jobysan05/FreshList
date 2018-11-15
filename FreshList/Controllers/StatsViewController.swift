@@ -5,6 +5,10 @@
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
 
+// TODO: Add protocol/delegate functionality for firebase auth list
+// TODO: Add firebase DB access functionalities
+// TODO: Add functionalities for recording stats from DB
+
 import UIKit
 
 class StatsViewController: UIViewController {

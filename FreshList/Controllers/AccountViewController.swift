@@ -9,6 +9,10 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+// TODO: Add protocol/delegate functionality for firebase auth
+// TODO: Add user settings functionalities
+
+
 class AccountViewController: UIViewController {
     
     // Configure user icon
