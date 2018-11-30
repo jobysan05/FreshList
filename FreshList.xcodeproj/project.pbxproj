@@ -114,9 +114,9 @@
 		C31EC089217CFE510085A255 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C3B2029221896A9200FAFFCC /* BarcodeScannerViewController.swift */,
 				C31EC08A217CFE950085A255 /* LoginController.swift */,
 				C3C5C6F3217EBEB7005D4C64 /* CustomTabBarController.swift */,
+				C3B2029221896A9200FAFFCC /* BarcodeScannerViewController.swift */,
 				C3C5C6F5217EFF28005D4C64 /* ShoppingListViewController.swift */,
 				544E7F9F219CEDDC000B684C /* ShoppingDetailsViewController.swift */,
 				C31B0F25218A892200FD5278 /* OnboardingViewController.swift */,

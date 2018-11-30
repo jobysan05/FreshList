@@ -9,9 +9,19 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-// TODO: Add scrollable view. (for landscape if Palidis cares about autolayout
+// TODO: Add scrollable view. (for landscape if Palidis cares about autolayout)
 
-class LoginController: UIViewController {
+protocol LoginControllerDelegate {
+    var userInformation: userInfo? { get }
+}
+
+struct userInfo {
+    var email: String?
+}
+
+class LoginController: UIViewController, LoginControllerDelegate {
+    var userInformation: userInfo?
+    
     // BEGIN Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     // Configure Logo
     let logoImageView: UIImageView = {
@@ -99,10 +109,8 @@ class LoginController: UIViewController {
     }()
     
     @objc func loginButtonPressed () {
-        if loginRegisterButton.currentTitle == "Register" {
-            print("register button pressed")
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 1 {
             guard let email = emailTextField.text, let password = passwordTextField.text else {
-                print("Form not vaild")
                 return
             }
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
@@ -115,7 +123,6 @@ class LoginController: UIViewController {
                     let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
                         "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: { action in
-                        print("loginBarController called")
                         self.loginRegisterSegmentedControl.selectedSegmentIndex = 0
                         self.handleLoginRegisterToggle()
                         self.passwordTextField.text! = ""
@@ -124,7 +131,6 @@ class LoginController: UIViewController {
                 }
             }
         } else {
-            print("loging button pressed")
             // TODO: add functionality to save username (and maybe email?) to pass through protocol/delegate
             Auth.auth().signIn(withEmail:  emailTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if ((error) != nil) {
@@ -133,13 +139,20 @@ class LoginController: UIViewController {
                     alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
                     self.present(alertController, animated: true, completion: nil)
                 } else {
-                    let homeScreenController = CustomTabBarController()
-                    self.present(homeScreenController, animated: true, completion: nil)
+                    self.userInformation?.email = self.emailTextField.text!
+                    self.finishLoggingIn()
+//                    let homeScreenController = CustomTabBarController()
+//                    self.present(homeScreenController, animated: true, completion: nil)
+                    
                 }
             }
         }
     }
-    
+    func finishLoggingIn() {
+        print("Successfully logged in.")
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     // Configure skip login button
     let skipLoginButton: UIButton = {
         let button = UIButton(type: .system)

@@ -28,14 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("App already launched")
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.makeKeyAndVisible()
-            window?.rootViewController = LoginController()
+            window?.rootViewController = CustomTabBarController()
             
             // Get rid of shadow under navigation bar
             UINavigationBar.appearance().shadowImage = UIImage()
             UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
             
             // Change highlight color of tab bar buttons
-            UITabBar.appearance().tintColor = UIColor(r: 48,g: 89, b: 23)
+            let darkGreen: UIColor = UIColor(r: 48,g: 89, b: 23)
+            UITabBar.appearance().tintColor = darkGreen
             
             // Change font color in status bar to white and make background darker
             var preferredStatusBarStyle: UIStatusBarStyle {

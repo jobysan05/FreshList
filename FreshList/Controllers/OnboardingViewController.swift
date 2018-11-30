@@ -61,7 +61,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         
         let slide5:Slide = Bundle.main.loadNibNamed("Slide", owner: self, options: nil)?.first as! Slide
         slide5.imageView.image = UIImage(named: "icons8-barcode-reader-filled-500")
-        slide5.labelTitle.text = "FreshList is barcode Friendly!!"
+        slide5.labelTitle.text = "FreshList is barcode friendly!"
         slide5.labelDesc.text = "Freshliast helps you to scan bar codes of items purchased and automatically fetches the item details!"
         
         let _:Slide = Bundle.main.loadNibNamed("Slide", owner: self, options: nil)?.first as! Slide
@@ -91,6 +91,11 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
      * when scrollview is scrolled, the below code needs to be called:
      * slideScrollView.delegate = self or
      */
+    func mainView() {
+        let loginController = LoginController()
+        self.present(loginController, animated: true, completion: nil)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x/view.frame.width)
         pageControl.currentPage = Int(pageIndex)
@@ -133,48 +138,12 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         } else if(percentOffset.x > 0.75 && percentOffset.x <= 1) {
             slides[3].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
             slides[4].imageView.transform = CGAffineTransform(scaleX: percentOffset.x, y: percentOffset.x)
-        }
-// your code
-            
-//        else if(percentOffset.x > 1 && percentOffset.x <= 1.25) {
-//            slides[4].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
-//            slides[5].imageView.transform = CGAffineTransform(scaleX: percentOffset.x, y: percentOffset.x)
-//        }
-//        else if(percentOffset.x > 1.25 && percentOffset.x <= 1.50) {
-//            slides[5].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
-//            slides[6].imageView.transform = CGAffineTransform(scaleX: percentOffset.x, y: percentOffset.x)
-//
-//        }
-        else if(percentOffset.x > 1 ){
+        } else if(percentOffset.x > 1 ){
             print("percentOffset.x is : \(percentOffset.x)")
-            
-            let alertController = UIAlertController(title: "Let's get started!", message:
-                "Let's get started!", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default,handler: { action in
-                //run your function here
-                mainView()
-            }))
-            
-            self.present(alertController, animated: true, completion: nil)
-       
-        
+            mainView()
         }
-        func mainView() {
-            
-            window = UIWindow(frame: UIScreen.main.bounds)
-            window?.makeKeyAndVisible()
-            window?.rootViewController = LoginController()
-            
-            // Get rid of shadow under navigation bar
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-            
-            // Change highlight color of tab bar buttons
-            UITabBar.appearance().tintColor = UIColor(r: 128, g: 171, b: 103)
-            
-        }
-       
         
+       
         func scrollView(_ scrollView: UIScrollView, didScrollToPercentageOffset percentageHorizontalOffset: CGFloat) {
             if(pageControl.currentPage == 0) {
                 //Change background color to toRed: 103/255, fromGreen: 58/255, fromBlue: 183/255, fromAlpha: 1
