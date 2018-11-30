@@ -109,10 +109,11 @@ class LoginController: UIViewController, LoginControllerDelegate {
     }()
     
     @objc func loginButtonPressed () {
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            return
+        }
         if loginRegisterSegmentedControl.selectedSegmentIndex == 1 {
-            guard let email = emailTextField.text, let password = passwordTextField.text else {
-                return
-            }
+            
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 if ((error) != nil) {
                     let alertController = UIAlertController(title: "Error Registering account !", message:
@@ -132,7 +133,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
             }
         } else {
             // TODO: add functionality to save username (and maybe email?) to pass through protocol/delegate
-            Auth.auth().signIn(withEmail:  emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+            Auth.auth().signIn(withEmail:  email, password: password) { (user, error) in
                 if ((error) != nil) {
                     let alertController = UIAlertController(title: "Error Logging into account !", message:
                         "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
