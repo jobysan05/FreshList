@@ -153,6 +153,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
         print("Successfully logged in.")
         let homeScreenController = CustomTabBarController()
         self.present(homeScreenController, animated: true, completion: nil)
+        navigationController?.pushViewController(homeScreenController, animated: true)
     }
     // Configure skip login button
     let skipLoginButton: UIButton = {
@@ -168,8 +169,10 @@ class LoginController: UIViewController, LoginControllerDelegate {
     
     // Function called to skip login and go to home screen
     @objc func handleSkipLogin() {
-        let tabBarController = CustomTabBarController()
-        present(tabBarController, animated: true, completion: nil)
+        let homeScreenController = CustomTabBarController()
+        self.present(homeScreenController, animated: true, completion: nil)
+        navigationController?.pushViewController(homeScreenController, animated: true)
+
         
     }
     

@@ -21,14 +21,14 @@ class CustomTabBarController: UITabBarController {
         super.viewDidAppear(true)
         print("Peekaboo!")
         if isLoggedIn() {
-            //             Assume user is logged in
+            // Assume user is logged in
         } else {
             perform(#selector(showLoginController), with: nil, afterDelay: 0.0)
         }
     }
 //     Function to check if user is already logged in
     fileprivate func isLoggedIn() -> Bool {
-        return true
+        return false
     }
     
     // Function to show loginController
@@ -47,6 +47,9 @@ class CustomTabBarController: UITabBarController {
         topBorder.frame.size.width = 1000
         topBorder.frame.size.height = 0.5
         topBorder.backgroundColor = UIColor(r: 221, g: 221, b: 221).cgColor
+        // Change highlight color of tab bar buttons
+        let darkGreen: UIColor = UIColor(r: 48,g: 89, b: 23)
+        UITabBar.appearance().tintColor = darkGreen
         tabBar.clipsToBounds = true
         tabBar.layer.addSublayer(topBorder)
         setupTabBarItems()

@@ -92,9 +92,11 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
      * slideScrollView.delegate = self or
      */
     func mainView() {
-        let loginController = LoginController()
-        self.present(loginController, animated: true, completion: nil)
+        let loginController  = LoginController()
+        present(loginController, animated: true, completion: nil)
     }
+    
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x/view.frame.width)
@@ -139,7 +141,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
             slides[3].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
             slides[4].imageView.transform = CGAffineTransform(scaleX: percentOffset.x, y: percentOffset.x)
         } else if(percentOffset.x > 1 ){
-            print("percentOffset.x is : \(percentOffset.x)")
+            //print("percentOffset.x is : \(percentOffset.x)")
             mainView()
         }
         
