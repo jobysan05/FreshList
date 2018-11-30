@@ -87,7 +87,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     
     
     /*
-     * default function called when view is scolled. In order to enable callback
+     * default function called when view is scrolled. In order to enable callback
      * when scrollview is scrolled, the below code needs to be called:
      * slideScrollView.delegate = self or
      */

@@ -17,9 +17,7 @@ import UserNotifications
 struct defaultsKeys {
     static let keyOne = "firstStringKey"
     static let isAppAlreadyLaunchedOnce = false
-    
     static let flags = "0"
-    
 }
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -53,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("App already launched")
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.makeKeyAndVisible()
-            window?.rootViewController = CustomTabBarController()
+            window?.rootViewController = MainNavigationController()
             
             Messaging.messaging().delegate = self as? MessagingDelegate
             InstanceID.instanceID().instanceID { (result, error) in
