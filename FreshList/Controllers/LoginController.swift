@@ -20,8 +20,9 @@ struct userInfo {
 }
 
 class LoginController: UIViewController, LoginControllerDelegate {
-    var userInformation: userInfo?
     
+    var userInformation: userInfo?
+    var tabBarDelegate: CustomTabBarControllerDelegate?
     // BEGIN Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     // Configure Logo
     let logoImageView: UIImageView = {
@@ -142,18 +143,14 @@ class LoginController: UIViewController, LoginControllerDelegate {
                 } else {
                     self.userInformation?.email = self.emailTextField.text!
                     self.finishLoggingIn()
-//                    let homeScreenController = CustomTabBarController()
-//                    self.present(homeScreenController, animated: true, completion: nil)
-                    
                 }
             }
         }
     }
     func finishLoggingIn() {
         print("Successfully logged in.")
-        let homeScreenController = CustomTabBarController()
-        self.present(homeScreenController, animated: true, completion: nil)
-        navigationController?.pushViewController(homeScreenController, animated: true)
+        tabBarDelegate?.isLoggedIn(loggedIn: true)
+        self.dismiss(animated: true, completion: nil)
     }
     // Configure skip login button
     let skipLoginButton: UIButton = {
@@ -169,11 +166,12 @@ class LoginController: UIViewController, LoginControllerDelegate {
     
     // Function called to skip login and go to home screen
     @objc func handleSkipLogin() {
-        let homeScreenController = CustomTabBarController()
-        self.present(homeScreenController, animated: true, completion: nil)
-        navigationController?.pushViewController(homeScreenController, animated: true)
-
+        let loggedIn = true
         
+//        self.dismiss(animated: true, completion: nil)
+        let tabbar = CustomTabBarController()
+        self.present(tabbar, animated: true, completion: nil)
+        tabBarDelegate?.isLoggedIn(loggedIn: loggedIn)
     }
     
     
@@ -220,7 +218,6 @@ class LoginController: UIViewController, LoginControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
         
         view.addSubview(inputsContainerView)

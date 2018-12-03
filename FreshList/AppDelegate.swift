@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("App already launched")
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.makeKeyAndVisible()
-            window?.rootViewController = MainNavigationController()
+            window?.rootViewController = CustomTabBarController()
             
             Messaging.messaging().delegate = self as? MessagingDelegate
             InstanceID.instanceID().instanceID { (result, error) in
@@ -89,12 +89,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
             print("App launched first time")
-            let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "OnboardingControllerID") as UIViewController
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "OnboardingControllerID") as UIViewController
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = initialViewControlleripad
+            self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
-            
             return false
             
         }
