@@ -15,14 +15,42 @@
 
 import UIKit
 
-class ShoppingListViewController: UITableViewController {
+class ShoppingListViewController: UITableViewController, UISearchResultsUpdating {
     
+    let searchController = UISearchController(searchResultsController: nil)
+    let unfiltereditems = ["Potato","Tomatoes","Kiwi","Apples","Apricots","Peas"].sorted()
+    var filtereditems: [String]?
     let cellID = "cellID"
+    var shoppinglist = [ShoppingList]()
 
     override func viewDidLoad() {
+        filtereditems = unfiltereditems
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.barTintColor = UIColor(r: 128, g: 171, b: 103)
+        searchController.searchBar.placeholder = "Search for an item,"
+        self.definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        
         super.viewDidLoad()
+        
         setupNavigationBar(title: "Shopping List")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.estimatedRowHeight = 80
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        searchController.searchBar.text = ""
+        searchController.dismiss(animated: false, completion: nil)
+        self.searchController.searchBar.showsCancelButton = false
+        searchController.isActive = false
+    }
+    
+    func configureCell(shoppinglist: ShoppingList){
+        
     }
     
     private func setupNavigationBar(title: String) {
@@ -41,9 +69,9 @@ class ShoppingListViewController: UITableViewController {
         // TODO: Add search bar and appropriate functionalities. Want to be able to add items quickly searched from our DB
         let addItemButton = setupAddItemButton()
         let barcodeButton = setupBarcodeButton()
-        let searchButton = setupSearchButton()
+        //let searchButton = setupSearchButton()
         navigationItem.rightBarButtonItems = [addItemButton, barcodeButton]
-        navigationItem.leftBarButtonItem = searchButton
+        //navigationItem.leftBarButtonItem = searchButton
     }
     
     // Function to set up add item button in navigation bar
@@ -78,32 +106,46 @@ class ShoppingListViewController: UITableViewController {
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
     
-    // Function to set up search button in navigation bar
-    private func setupSearchButton() -> UIBarButtonItem {
-        let searchBtn = UIButton(type: .custom)
-        var searchImg = UIImage(named: "search")
-        searchImg = searchImg?.maskWithColor(color: UIColor.white)
-        searchBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
-        searchBtn.setImage(searchImg, for: .normal)
-        searchBtn.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
-        let searchBarItem = UIBarButtonItem(customView: searchBtn)
-        let currWidth = searchBarItem.customView?.widthAnchor.constraint(equalToConstant: 24)
-        currWidth?.isActive = true
-        let currHeight = searchBarItem.customView?.heightAnchor.constraint(equalToConstant: 24)
-        currHeight?.isActive = true
-        return searchBarItem
+    func updateSearchResults(for searchController: UISearchController){
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            filtereditems = unfiltereditems.filter { food in
+                return food.lowercased().contains(searchText.lowercased())
+            }
+            
+        } else{
+            filtereditems = unfiltereditems
+        }
+        tableView.reloadData()
     }
-    
+    // Function to set up search button in navigation bar
+//    private func setupSearchButton() -> UIBarButtonItem {
+//        let searchBtn = UIButton(type: .custom)
+//        var searchImg = UIImage(named: "search")
+//        searchImg = searchImg?.maskWithColor(color: UIColor.white)
+//        searchBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+//        searchBtn.setImage(searchImg, for: .normal)
+//        searchBtn.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
+//        let searchBarItem = UIBarButtonItem(customView: searchBtn)
+//        let currWidth = searchBarItem.customView?.widthAnchor.constraint(equalToConstant: 24)
+//        currWidth?.isActive = true
+//        let currHeight = searchBarItem.customView?.heightAnchor.constraint(equalToConstant: 24)
+//        currHeight?.isActive = true
+//        return searchBarItem
+//    }
+//
     // Function called to search shopping list
     @objc private func handleSearch() {
-        // TODO: Add search functionality
+//
     }
+    
+    
+    
     
     // BEGIN Table View Configurations
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         
-        label.text = "header"
+        label.text = "To Buy"
         label.backgroundColor = UIColor(r: 168, g: 211, b: 143)
         return label
     }
@@ -113,15 +155,27 @@ class ShoppingListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+//        guard let fooditems = shoppinglist else {
+//            return 0
+//        }
+        return shoppinglist.count
+        //return 5
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        cell.textLabel?.text = "TEST"
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        //cell.configureCell(shoppinglist: ShoppingList[indexPath.row])
+        if let fooditems = filtereditems{
+            let food = fooditems[indexPath.row]
+            cell.textLabel!.text = food
+        }
+        //cell.textLabel?.text = "TEST"
         
         return cell
     }
     // END Table View Configurations
-    
+ 
+   
 }
+

@@ -28,7 +28,7 @@ class CustomTabBarController: UITabBarController {
     }
 //     Function to check if user is already logged in
     fileprivate func isLoggedIn() -> Bool {
-        return false
+        return true
     }
     
     // Function to show loginController

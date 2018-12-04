@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 // TODO: add protocol/delegate functionality for firebase auth 
 // TODO: add protocol/delegate functionality for adding item to ShoppingListViewController user list.
@@ -127,10 +128,19 @@ class AddToShoppingListViewController: UIViewController {
         // TODO: Add firebase functionality to save item to user ingredients table
         let db = Firestore.firestore()
         var ref: DocumentReference? = nil
+        let myRef = db.collection("cShopping_Lists")
+        //let secondRef = db.collection("second_collection")
+        
+        //let tempId = myRef.document().documentID
+        
+        //myRef.document(tempId).setData(myDictionary)
+        //secondRef.document(tempId).setData(otherDictionary)
         ref = db.collection("Shopping_Lists").addDocument(data: [
             "ingredient_Name": nameTextField.text!,
             "amount": amountTextField.text!,
-            "units": unitTextField.text!
+            "units": unitTextField.text!,
+            "ownerId": Auth.auth().currentUser?.uid,
+            "shoppingListId": ref?.documentID
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")

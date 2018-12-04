@@ -14,6 +14,10 @@
 		544E7F9E219CEA63000B684C /* IngredientsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E7F9D219CEA63000B684C /* IngredientsDetailsViewController.swift */; };
 		544E7FA0219CEDDC000B684C /* ShoppingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E7F9F219CEDDC000B684C /* ShoppingDetailsViewController.swift */; };
 		544E7FA2219CEE94000B684C /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E7FA1219CEE94000B684C /* RecipeDetailsViewController.swift */; };
+		54BB84FB21B4670C00F4CD12 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB84FA21B4670C00F4CD12 /* ChartViewController.swift */; };
+		54BB84FD21B46E5700F4CD12 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB84FC21B46E5700F4CD12 /* BarChart.swift */; };
+		54BB84FF21B4B62F00F4CD12 /* shoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB84FE21B4B62F00F4CD12 /* shoppingList.swift */; };
+		54BB850121B4BE8300F4CD12 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB850021B4BE8300F4CD12 /* Constants.swift */; };
 		C31B0F26218A892200FD5278 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31B0F25218A892200FD5278 /* OnboardingViewController.swift */; };
 		C31EC08B217CFE950085A255 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31EC08A217CFE950085A255 /* LoginController.swift */; };
 		C32C2B32219204C500ED5806 /* RecipeFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C2B31219204C500ED5806 /* RecipeFeedCell.swift */; };
@@ -51,6 +55,10 @@
 		544E7F9D219CEA63000B684C /* IngredientsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsDetailsViewController.swift; sourceTree = "<group>"; };
 		544E7F9F219CEDDC000B684C /* ShoppingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingDetailsViewController.swift; sourceTree = "<group>"; };
 		544E7FA1219CEE94000B684C /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
+		54BB84FA21B4670C00F4CD12 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		54BB84FC21B46E5700F4CD12 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
+		54BB84FE21B4B62F00F4CD12 /* shoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shoppingList.swift; sourceTree = "<group>"; };
+		54BB850021B4BE8300F4CD12 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A7F278CD888DCDF3CB0EC6D7 /* Pods-FreshList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FreshList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FreshList/Pods-FreshList.debug.xcconfig"; sourceTree = "<group>"; };
 		C31B0F25218A892200FD5278 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C31EC08A217CFE950085A255 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -129,6 +137,10 @@
 				C3B202902188CB3300FAFFCC /* AddToShoppingListViewController.swift */,
 				C3C5C6FB217F9C33005D4C64 /* AddToIngredientsViewController.swift */,
 				C3C5C6FD217FC916005D4C64 /* AddToRecipesViewController.swift */,
+				54BB84FA21B4670C00F4CD12 /* ChartViewController.swift */,
+				54BB84FC21B46E5700F4CD12 /* BarChart.swift */,
+				54BB84FE21B4B62F00F4CD12 /* shoppingList.swift */,
+				54BB850021B4BE8300F4CD12 /* Constants.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -313,10 +325,12 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-FreshList/Pods-FreshList-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -331,10 +345,12 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -357,11 +373,14 @@
 			files = (
 				C3AE11092179C4A2000F6EDA /* FreshList.xcdatamodeld in Sources */,
 				544E7FA2219CEE94000B684C /* RecipeDetailsViewController.swift in Sources */,
+				54BB84FB21B4670C00F4CD12 /* ChartViewController.swift in Sources */,
 				C3C5C6F8217EFF7D005D4C64 /* RecipesViewController.swift in Sources */,
 				C3C12A792186D959008FE026 /* RecipesMenuBar.swift in Sources */,
 				544E7FA0219CEDDC000B684C /* ShoppingDetailsViewController.swift in Sources */,
 				C3CA0FBA21824D7800A98A43 /* AccountViewController.swift in Sources */,
+				54BB84FF21B4B62F00F4CD12 /* shoppingList.swift in Sources */,
 				C3C5C6FA217F0006005D4C64 /* StatsViewController.swift in Sources */,
+				54BB850121B4BE8300F4CD12 /* Constants.swift in Sources */,
 				C31EC08B217CFE950085A255 /* LoginController.swift in Sources */,
 				C3C12A7D2186E793008FE026 /* RecipeMenuBarCell.swift in Sources */,
 				4AF6A59A218A80A500252BA0 /* Slide.swift in Sources */,
@@ -381,6 +400,7 @@
 				C32C2B32219204C500ED5806 /* RecipeFeedCell.swift in Sources */,
 				C3B202912188CB3300FAFFCC /* AddToShoppingListViewController.swift in Sources */,
 				C3E7DC41218F7F8E002D6C62 /* APIService.swift in Sources */,
+				54BB84FD21B46E5700F4CD12 /* BarChart.swift in Sources */,
 				C3B20298218A56FA00FAFFCC /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
