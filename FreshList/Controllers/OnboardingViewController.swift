@@ -93,7 +93,6 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
      */
     func mainView() {
         let loginController  = LoginController()
-//        self.dismiss(animated: true, completion: nil)
         present(loginController, animated: true, completion: nil)
     }
     

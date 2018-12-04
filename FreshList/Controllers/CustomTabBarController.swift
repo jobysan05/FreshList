@@ -14,7 +14,7 @@ protocol CustomTabBarControllerDelegate: class {
 }
 class CustomTabBarController: UITabBarController, CustomTabBarControllerDelegate {
     
-    var loggedInStatus: Bool = true
+    var loggedInStatus: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

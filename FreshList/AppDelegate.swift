@@ -27,10 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         let defaults = UserDefaults.standard
+        
         // Initialize Firebase within app
         FirebaseApp.configure()
         
+        // Check iOS version to determine notification methods
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
@@ -47,21 +50,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
         
+        // Check if app has been launched once already
         if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
             print("App already launched")
             window = UIWindow(frame: UIScreen.main.bounds)
+//            window?.rootViewController = CustomTabBarController()
+            window?.rootViewController = OnboardingController()
             window?.makeKeyAndVisible()
-            window?.rootViewController = CustomTabBarController()
-            
             Messaging.messaging().delegate = self as? MessagingDelegate
             InstanceID.instanceID().instanceID { (result, error) in
                 if let error = error {
                     print("Error fetching remote instange ID: \(error)")
                 } else if let result = result {
                     print("Remote instance ID token: \(result.token)")
-                    
                 }
-                
             }
             Messaging.messaging().isAutoInitEnabled = true
             
@@ -77,25 +79,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var preferredStatusBarStyle: UIStatusBarStyle {
                 return .lightContent
             }
-            let statusBarBackground = UIView()
-            statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
-            window?.addSubview(statusBarBackground)
-            window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
-            window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
+            
+            // Changing the color of the status bar (This doesn't work for iphone X and beyond).
+//            let statusBarBackground = UIView()
+//            statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
+//            window?.addSubview(statusBarBackground)
+//            window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
+//            window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
             
             return true
-        }
-        else{
-            
+        } else {
             defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
             print("App launched first time")
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "OnboardingControllerID") as UIViewController
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = initialViewController
+            let rootViewController = initialViewController
+            self.window?.rootViewController = rootViewController
             self.window?.makeKeyAndVisible()
-            return false
             
+            return false
         }
         
         

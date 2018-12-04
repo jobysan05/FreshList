@@ -1,5 +1,5 @@
 //
-//  LoginController.swift
+//  LoginCell.swift
 //  FreshList
 //
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
@@ -9,21 +9,8 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-// TODO: Add scrollable view. (for landscape if Palidis cares about autolayout)
-
-protocol LoginControllerDelegate {
-    var userInformation: userInfo? { get }
-}
-
-struct userInfo {
-    var email: String?
-}
-
-class LoginController: UIViewController, LoginControllerDelegate {
+class LoginCell: UICollectionViewCell {
     
-    var userInformation: userInfo?
-    var tabBarDelegate: CustomTabBarControllerDelegate?
-    // BEGIN Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     // Configure Logo
     let logoImageView: UIImageView = {
         let logo = UIImageView()
@@ -33,6 +20,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
         
         return logo
     }()
+    
     // Configure container for input fields
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -43,15 +31,17 @@ class LoginController: UIViewController, LoginControllerDelegate {
         
         return view
     }()
+    
     // Configure name field
     let nameTextField: UITextField = {
         let tf = UITextField()
         tf.textColor = UIColor.white
         tf.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 230, g: 230, b: 230)])
         tf.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         return tf
     }()
+    
     // Configure line under name field
     let nameSeparatorView: UIView = {
         let separator = UIView()
@@ -60,6 +50,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
         
         return separator
     }()
+    
     // Configure email field
     let emailTextField: UITextField = {
         let tf = UITextField()
@@ -69,7 +60,8 @@ class LoginController: UIViewController, LoginControllerDelegate {
         
         return tf
     }()
-    // Configure line under name field
+    
+    // Configure line under email field
     let emailSeparatorView: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor.white
@@ -110,6 +102,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
     }()
     
     @objc func loginButtonPressed () {
+        print("loginButton pressed")
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
@@ -120,7 +113,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
                     let alertController = UIAlertController(title: "Error Registering account !", message:
                         "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
-                    self.present(alertController, animated: true, completion: nil)
+//                    self.present(alertController, animated: true, completion: nil)
                 } else  {
                     let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
                         "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
@@ -129,7 +122,7 @@ class LoginController: UIViewController, LoginControllerDelegate {
                         self.handleLoginRegisterToggle()
                         self.passwordTextField.text! = ""
                     }))
-                    self.present(alertController, animated: true, completion: nil)
+//                    self.present(alertController, animated: true, completion: nil)
                 }
             }
         } else {
@@ -139,19 +132,20 @@ class LoginController: UIViewController, LoginControllerDelegate {
                     let alertController = UIAlertController(title: "Error Logging into account !", message:
                         "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
-                    self.present(alertController, animated: true, completion: nil)
+//                    self.present(alertController, animated: true, completion: nil)
                 } else {
-                    self.userInformation?.email = self.emailTextField.text!
+//                    self.userInformation?.email = self.emailTextField.text!
                     self.finishLoggingIn()
                 }
             }
         }
     }
     
+    // Function to complete logging in process
     func finishLoggingIn() {
         print("Successfully logged in.")
-        tabBarDelegate?.isLoggedIn(loggedIn: true)
-        self.dismiss(animated: true, completion: nil)
+//        tabBarDelegate?.isLoggedIn(loggedIn: true)
+//        self.dismiss(animated: true, completion: nil)
     }
     // Configure skip login button
     let skipLoginButton: UIButton = {
@@ -159,7 +153,6 @@ class LoginController: UIViewController, LoginControllerDelegate {
         button.backgroundColor = UIColor.clear
         button.setTitle("Skip For Now", for: .normal)
         button.setTitleColor(UIColor(r: 230, g: 230, b: 230), for: .normal)
-        button.addTarget(self, action: #selector(handleSkipLogin), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -167,11 +160,11 @@ class LoginController: UIViewController, LoginControllerDelegate {
     
     // Function called to skip login and go to home screen
     @objc func handleSkipLogin() {
-        tabBarDelegate?.isLoggedIn(loggedIn: true)
-        self.dismiss(animated: true, completion: nil)
-
+        print("Skipping login")
+//        tabBarDelegate?.isLoggedIn(loggedIn: true)
+//        self.dismiss(animated: true, completion: nil)
+        
     }
-    
     
     // Confiure login/register toggle
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
@@ -200,46 +193,48 @@ class LoginController: UIViewController, LoginControllerDelegate {
         // Even out spacing of Email Address and Password fields based on Login/Register Toggle, "remove" nameSeparator line
         emailTextFieldHeightAnchorConstraint?.isActive = false
         emailTextFieldHeightAnchorConstraint = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor,
-                                                                                    multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
+                                                                                      multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
         emailTextFieldHeightAnchorConstraint?.isActive = true
-
+        
         passwordTextFieldHeightAnchorConstraint?.isActive = false
         passwordTextFieldHeightAnchorConstraint = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor,
-                                                                                      multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
+                                                                                            multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
         passwordTextFieldHeightAnchorConstraint?.isActive = true
         
         nameSeparatorViewHeightAnchorConstraint?.isActive = false
         nameSeparatorViewHeightAnchorConstraint = nameSeparatorView.heightAnchor.constraint(equalToConstant: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1)
         nameSeparatorViewHeightAnchorConstraint?.isActive = true
     }
-    // END Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
         setupView()
         
-        view.addSubview(inputsContainerView)
-        view.addSubview(loginRegisterButton)
-        view.addSubview(logoImageView)
-        view.addSubview(loginRegisterSegmentedControl)
-        view.addSubview(skipLoginButton)
+        addSubview(inputsContainerView)
+        addSubview(loginRegisterButton)
+        addSubview(logoImageView)
+        addSubview(loginRegisterSegmentedControl)
+        addSubview(skipLoginButton)
+        
+        loginRegisterButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+        skipLoginButton.addTarget(self, action: #selector(handleSkipLogin), for: .touchUpInside)
         
         setupInputsContainerView()
         setupLoginRegisterButton()
         setupLogoImageView()
         setupLoginRegisterSegmentedControl()
         setupSkipLoginButton()
-        
     }
     
     private func setupView() {
-        view.backgroundColor = UIColor(r: 128, g: 171, b: 103)
+        backgroundColor = UIColor(r: 128, g: 171, b: 103)
     }
     
     // Function to set up boundaries and positioning for login/register toggle
     private func setupLoginRegisterSegmentedControl() {
         // Set up X, Y, width, and height constraints for Login/Register segmented control
-        loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         loginRegisterSegmentedControl.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -12).isActive = true
         loginRegisterSegmentedControl.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1).isActive = true
         loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -248,10 +243,10 @@ class LoginController: UIViewController, LoginControllerDelegate {
     // Function to set up boundaries and positioning for logo
     private func setupLogoImageView() {
         // Set up X, Y, width, and height constraints for logo
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        logoImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
     }
     
     // Variables to hold height constraints for input fields for modification by login/register toggle
@@ -264,9 +259,9 @@ class LoginController: UIViewController, LoginControllerDelegate {
     // Function to set up bounds and positioning for input container and fields in view
     private func setupInputsContainerView() {
         // Set up X, Y, width, and height constraints for inputs
-        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+        inputsContainerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        inputsContainerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        inputsContainerView.widthAnchor.constraint(equalTo: widthAnchor, constant: -24).isActive = true
         inputsContainerViewHeightAnchorConstraint = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputsContainerViewHeightAnchorConstraint?.isActive = true
         
@@ -321,18 +316,20 @@ class LoginController: UIViewController, LoginControllerDelegate {
     // Function to set up boundaries and positioning for login/register button
     private func setupLoginRegisterButton() {
         // Set up X, Y, width, and height constraints for login/register button
-        loginRegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginRegisterButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true
-        loginRegisterButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -48).isActive = true
+        loginRegisterButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -48).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     // Function to set up boundaries and positioning for skip login button
     private func setupSkipLoginButton() {
         // Set up X, Y, width, and height constraints for skip login button
-        skipLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        skipLoginButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         skipLoginButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 30).isActive = true
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
-
