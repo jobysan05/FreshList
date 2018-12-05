@@ -119,6 +119,9 @@ PODS:
     - gRPC-Core (= 1.14.0)
     - gRPC-RxLibrary (= 1.14.0)
   - GTMSessionFetcher/Core (1.2.0)
+  - KRActivityIndicatorView (3.0.0)
+  - KRProgressHUD (3.4.0):
+    - KRActivityIndicatorView (= 3.0.0)
   - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -136,6 +139,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Firestore
   - Firebase/Storage
+  - KRProgressHUD
   - SwiftyJSON (~> 4.0)
   - SwipeCellKit
 
@@ -160,6 +164,8 @@ SPEC REPOS:
     - gRPC-ProtoRPC
     - gRPC-RxLibrary
     - GTMSessionFetcher
+    - KRActivityIndicatorView
+    - KRProgressHUD
     - leveldb-library
     - nanopb
     - Protobuf
@@ -186,12 +192,14 @@ SPEC CHECKSUMS:
   gRPC-ProtoRPC: 76f6053639a842e1fb45fa82aa598bf3f4d9f66f
   gRPC-RxLibrary: 3c305f32155024b116b780f389323c73a28197e6
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  KRActivityIndicatorView: c414000730a6f4969eeb354bee4f2aebc89c2c2e
+  KRProgressHUD: 79c8703f82179fe34b3602f10b30726f887983fa
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwipeCellKit: d8f2617538ce3021cb0a11d1b93856a06a2f2e20
 
-PODFILE CHECKSUM: 5e30b59a9015709497225c6735e77fc808275eb8
+PODFILE CHECKSUM: 4555a5c142e1c2f2edade96c16c2abf6cfa742c0
 
 COCOAPODS: 1.5.3

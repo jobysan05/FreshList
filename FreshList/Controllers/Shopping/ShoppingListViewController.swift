@@ -17,10 +17,9 @@ import UIKit
 import Firebase
 import SwipeCellKit
 
-class ShoppingListViewController: UITableViewController, UISearchResultsUpdating  {
+class ShoppingListViewController: UITableViewController, UISearchResultsUpdating, SwipeTableViewCellDelegate  {
     
     let searchController = UISearchController(searchResultsController: nil)
-    //let unfiltereditems = ["Potato","Tomatoes","Kiwi","Apples","Apricots","Peas"].sorted()
     var filtereditems: [String]?
     var shoppinglistnames = [String]()
     let cellID = "cellID"
@@ -28,7 +27,7 @@ class ShoppingListViewController: UITableViewController, UISearchResultsUpdating
     var shoppingListCollectionRef: CollectionReference!
     
     var defaultOptions = SwipeTableOptions()
-    //var isSwipeRightEnabled = true
+    var isSwipeRightEnabled = true
     
 
     override func viewDidLoad() {
@@ -47,18 +46,13 @@ class ShoppingListViewController: UITableViewController, UISearchResultsUpdating
         super.viewDidLoad()
         
         setupNavigationBar(title: "Shopping List")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(SwipeTableViewCell.self, forCellReuseIdentifier: cellID)
         tableView.estimatedRowHeight = 80
-        tableView.allowsMultipleSelectionDuringEditing = true
+        //tableView.allowsMultipleSelectionDuringEditing = true
+        
+        
     }
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-    }
+
     override func viewWillAppear(_ animated: Bool) {
         pullfromDBAndUpdate()
     }
@@ -76,17 +70,33 @@ class ShoppingListViewController: UITableViewController, UISearchResultsUpdating
                     let units = data["units"] as? String ?? ""
                     let amount = data["amount"] as? Float ?? 0
                     let ownerId = data["ownerId"] as? String ?? ""
-                    let id = data["id"] as? String ?? ""
+                    let id = data["shoppingListId"] as? String ?? ""
                     
-                    let newShoppinglistItem  = ShoppingList(_name: name, _amount: amount, _units: units, _id: id)
-                    self.shoppinglist.append(newShoppinglistItem)
+                    let newShoppinglistItem  = ShoppingList(_name: name, _amount: amount, _units: units, id: id, ownerId: ownerId)
+                    if !self.shoppinglistnames.contains(name) {
+                        self.shoppinglist.append(newShoppinglistItem)
+                    }
                     
-                    self.shoppinglistnames.append(name)
+//                    DispatchQueue.main.async {
+//                        self.tableView.reloadData()
+//
+//                    }
+                    self.shoppinglistnames = self.updateShoppingListNamesArray(shoppinglist: self.shoppinglist)
+//                    self.shoppinglistnames.append(name)
 //                    print(self.shoppinglistnames)
                 }
+                
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    func updateShoppingListNamesArray(shoppinglist: [ShoppingList]) -> [String] {
+        var shoppingListNamesArray = [String]()
+        for i in shoppinglist {
+            shoppingListNamesArray.append(i.name)
+        }
+        return shoppingListNamesArray
     }
  
     override func viewDidDisappear(_ animated: Bool) {
@@ -182,17 +192,18 @@ class ShoppingListViewController: UITableViewController, UISearchResultsUpdating
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! SwipeTableViewCell
         
-        //cell.delegate = self
+        cell.delegate = self
 //        cell.selectedBackgroundView = createSelectedBackgroundView()
 //
-//        let fooditems = shoppinglist[indexPath.row]
 //        cell.textLabel?.text = fooditems.name
         //cell.configureCell(shoppinglist: ShoppingList[indexPath.row])
           if let fooditems = filtereditems {
             let food = fooditems[indexPath.row]
-            cell.textLabel!.text = food
+//            cell.ingredientNameLabel.text = food
+            cell.textLabel?.text = food
+//            print(cell.textLabel?.text)
         }
         //cell.textLabel?.text = "TEST"
         
@@ -201,68 +212,75 @@ class ShoppingListViewController: UITableViewController, UISearchResultsUpdating
     // END Table View Configurations
  
     // SwipeTableViewCell delegate functions
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-//
-//        var item: ShoppingList!
-//        item = shoppinglist[indexPath.row]
-//
-//        if orientation == .left {
-//            guard isSwipeRightEnabled else { return nil}
-//
-//            let buyitem = SwipeAction(style: .default, title: nil, handler: {action, indexPath in
-////                item.isBought = !item.isBought
-////                item.up
-//            let user = Auth.auth().currentUser?.uid
-//
-//            //let db = Firestore.firestore()
-//            var ref: DocumentReference? = nil
-//            db.collection("FreshList_Ingredients").document(user!).collection("ITEMS").document().setData ([
-//                "Ingredient_name": item.name,
-//                "Quantity": item.amount,
-//                "Category": "Unknown",
-//                "Expiry_date": "",
-//                "ownerId": Auth.auth().currentUser?.uid,
-//                ]) { err in
-//                    if let err = err {
-//                        print("Error adding document: \(err)")
-//                    } else {
-//                        print("Document added with ID: \(ref!.documentID)")
-//                    }
-//                }
-//
-//            self.shoppinglist.remove(at: indexPath.row)
-//            tableView.reloadData()
-//            })
-//            buyitem.accessibilityLabel = item.isBought ? "Bought" : "Return"
-//            let descriptor: ActionDescriptor = item.isBought ? .returnitem : .bought
-//            configure(action: buyitem, with: descriptor)
-//            return[buyitem]
-//        } else {
-//            let delete = SwipeAction(style: .destructive, title: nil, handler: { (action, indexPath) in
-//                self.shoppinglist.remove(at: indexPath.row)
-//                self.tableView.beginUpdates()
-//                action.fulfill(with: .delete)
-//                self.tableView.endUpdates()
-//            })
-//            configure(action: delete, with: .trash)
-//            return[delete]
-//        }
-//    }
-//
-//    func configure(action: SwipeAction, with descriptor: ActionDescriptor) {
-//        action.title = descriptor.title()
-//        action.image = descriptor.image()
-//        action.backgroundColor = descriptor.color
-//    }
-//
-//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
-//
-//        var options = SwipeTableOptions()
-//        options.expansionStyle = orientation == .left ? .selection : .destructive
-//        options.transitionStyle = defaultOptions.transitionStyle
-//        options.buttonSpacing = 11
-//
-//        return options
-//    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+
+        var item: ShoppingList!
+        item = shoppinglist[indexPath.row]
+
+        if orientation == .left {
+            guard isSwipeRightEnabled else { return nil}
+
+            let buyitem = SwipeAction(style: .default, title: nil, handler: {action, indexPath in
+//                item.isBought = !item.isBought
+//                item.up
+            
+
+                let db = Firestore.firestore()
+                var ref: DocumentReference? = nil
+                let user = Auth.auth().currentUser?.uid
+                
+                db.collection("FreshList_Ingredients").document().setData ([
+                    "Ingredient_name": item.name,
+                    "Quantity": item.amount,
+                    "Category": "Unknown",
+                    "Expiry_date": "",
+                    "ownerId": Auth.auth().currentUser?.uid,
+                    ]) { err in
+                        if let err = err {
+                            print("Error adding document: \(err)")
+                        } else {
+//                            print("Document added with ID: \(ref!.documentID)")
+                        }
+                    }
+
+                self.shoppinglist.remove(at: indexPath.row)
+                self.filtereditems?.remove(at: indexPath.row)
+                tableView.reloadData()
+                })
+            buyitem.accessibilityLabel = item.isBought ? "Bought" : "Return"
+            let descriptor: ActionDescriptor = item.isBought ? .returnitem : .bought
+            configure(action: buyitem, with: descriptor)
+            return[buyitem]
+        } else {
+            let delete = SwipeAction(style: .destructive, title: nil, handler: { (action, indexPath) in
+                
+                //item.deleteItemInBackground(shoppingItem: item)
+                
+                self.shoppinglist.remove(at: indexPath.row)
+                self.filtereditems?.remove(at: indexPath.row)
+                self.tableView.beginUpdates()
+                action.fulfill(with: .delete)
+                self.tableView.endUpdates()
+            })
+            configure(action: delete, with: .trash)
+            return[delete]
+        }
+    }
+
+    func configure(action: SwipeAction, with descriptor: ActionDescriptor) {
+        action.title = descriptor.title()
+        action.image = descriptor.image()
+        action.backgroundColor = descriptor.color
+    }
+
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+
+        var options = SwipeTableOptions()
+        options.expansionStyle = orientation == .left ? .selection : .destructive
+        options.transitionStyle = defaultOptions.transitionStyle
+        options.buttonSpacing = 11
+
+        return options
+    }
     
 }

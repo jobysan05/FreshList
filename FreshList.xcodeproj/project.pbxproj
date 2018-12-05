@@ -16,6 +16,7 @@
 		544E7FA2219CEE94000B684C /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E7FA1219CEE94000B684C /* RecipeDetailsViewController.swift */; };
 		5488B24A21B729FE00935BE3 /* IngredientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5488B24921B729FE00935BE3 /* IngredientList.swift */; };
 		5488B24F21B730D600935BE3 /* SwipeTableViewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5488B24E21B730D600935BE3 /* SwipeTableViewHelpers.swift */; };
+		54A0AE7421B82396007C107E /* ShoppingItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A0AE7321B82396007C107E /* ShoppingItemTableViewCell.swift */; };
 		54BB84FB21B4670C00F4CD12 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB84FA21B4670C00F4CD12 /* ChartViewController.swift */; };
 		54BB84FD21B46E5700F4CD12 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB84FC21B46E5700F4CD12 /* BarChart.swift */; };
 		54BB84FF21B4B62F00F4CD12 /* shoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB84FE21B4B62F00F4CD12 /* shoppingList.swift */; };
@@ -59,6 +60,7 @@
 		544E7FA1219CEE94000B684C /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
 		5488B24921B729FE00935BE3 /* IngredientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientList.swift; sourceTree = "<group>"; };
 		5488B24E21B730D600935BE3 /* SwipeTableViewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewHelpers.swift; sourceTree = "<group>"; };
+		54A0AE7321B82396007C107E /* ShoppingItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemTableViewCell.swift; sourceTree = "<group>"; };
 		54BB84FA21B4670C00F4CD12 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		54BB84FC21B46E5700F4CD12 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
 		54BB84FE21B4B62F00F4CD12 /* shoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shoppingList.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				54BB84FE21B4B62F00F4CD12 /* shoppingList.swift */,
 				C3C5C6F5217EFF28005D4C64 /* ShoppingListViewController.swift */,
 				C3B202902188CB3300FAFFCC /* AddToShoppingListViewController.swift */,
+				54A0AE7321B82396007C107E /* ShoppingItemTableViewCell.swift */,
 				544E7F9F219CEDDC000B684C /* ShoppingDetailsViewController.swift */,
 				5488B24E21B730D600935BE3 /* SwipeTableViewHelpers.swift */,
 			);
@@ -358,6 +361,8 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
@@ -378,6 +383,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
@@ -427,6 +434,7 @@
 				C3C5C6FE217FC916005D4C64 /* AddToRecipesViewController.swift in Sources */,
 				C3C12A7721869496008FE026 /* RecipeCell.swift in Sources */,
 				C31B0F26218A892200FD5278 /* OnboardingViewController.swift in Sources */,
+				54A0AE7421B82396007C107E /* ShoppingItemTableViewCell.swift in Sources */,
 				C3C12A7B2186E6EF008FE026 /* BaseCell.swift in Sources */,
 				C3AE11012179C4A2000F6EDA /* AppDelegate.swift in Sources */,
 				C32C2B32219204C500ED5806 /* RecipeFeedCell.swift in Sources */,

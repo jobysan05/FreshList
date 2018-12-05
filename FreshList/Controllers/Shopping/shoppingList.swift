@@ -19,12 +19,12 @@ class ShoppingList {
     var ownerId: String //To know which owner the item belongs to
     var isBought: Bool
     
-    init(_name: String, _amount: Float = 0, _units: String = "", _id: String = "") {
+    init(_name: String, _amount: Float = 0, _units: String = "", id: String, ownerId: String) {
         name = _name
         amount = _amount
         units = _units
-        id = _id
-        ownerId = "1234"
+        self.id = id
+        self.ownerId = ownerId
         isBought = false
     }
     
@@ -56,11 +56,17 @@ class ShoppingList {
 //    }
 //
 //
-//    func deleteItemInBackground(shoppingList: ShoppingList) {
-//
-//        let ref = db.collection(kSHOPPINGLIST).document("1234")
-//        ref.delete()
-//    }
+    func deleteItemInBackground(shoppingList: ShoppingList) {
+
+        Firestore.firestore().collection(kSHOPPINGLIST).document(shoppingList.id).delete(completion: { (error) in
+            if let error = error {
+                    debugPrint("Could not delete")
+                }
+                else {
+                    print("successful deletion")
+                }
+        })
+    }
 //
 
 }

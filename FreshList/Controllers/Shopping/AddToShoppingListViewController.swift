@@ -9,12 +9,16 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import FirebaseAuth
+import KRProgressHUD
 
 // TODO: add protocol/delegate functionality for firebase auth 
 // TODO: add protocol/delegate functionality for adding item to ShoppingListViewController user list.
 
 
 class AddToShoppingListViewController: UIViewController {
+    
+    let db = Firestore.firestore()
+    
     
     // Configure inputs container
     let inputsContainerView: UIView = {
@@ -125,34 +129,61 @@ class AddToShoppingListViewController: UIViewController {
     }
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
-        // TODO: Add firebase functionality to save item to user ingredients table
-        let db = Firestore.firestore()
-        var ref: DocumentReference? = nil
         //let myRef = db.collection("cShopping_Lists")
         //let secondRef = db.collection("second_collection")
-        
         // let tempId = myRef.document().documentID
-        
         //myRef.document(tempId).setData(myDictionary)
         //secondRef.document(tempId).setData(otherDictionary)
         //let fUser = ShoppingList(_id: Auth.auth().currentUser?.uid, , )
-        ref = db.collection("Shopping_Lists").addDocument(data: [
-            "ingredient_Name": nameTextField.text!,
-            "amount": amountTextField.text!,
-            "units": unitTextField.text!,
-            "ownerId": Auth.auth().currentUser?.uid,
-            "shoppingListId": ref?.documentID
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: \(ref!.documentID)")
-            }
-        }
-        self.popBack(toControllerType: ShoppingListViewController.self)
+        
+        addItemToShoppingList(db: self.db)
+        
     }
     
-    
+    func addItemToShoppingList(db: Firestore) {
+        var shoppinglist = [String]()
+        let shoppingListCollectionRef = Firestore.firestore().collection(kSHOPPINGLIST)
+        shoppingListCollectionRef.getDocuments { (snapshot, error) in
+            if let err = error {
+                debugPrint("Error fetching docs: \(err)")
+            } else {
+                guard let snap = snapshot else { return }
+                for document in snap.documents {
+                    let data = document.data()
+                    let name = data["ingredient_Name"] as? String ?? "Anonymous"
+                    let units = data["units"] as? String ?? ""
+                    let amount = data["amount"] as? Float ?? 0
+                    let ownerId = data["ownerId"] as? String ?? ""
+                    let id = data["shoppingListId"] as? String ?? ""
+                    
+                    let newShoppinglistItem  = ShoppingList(_name: name, _amount: amount, _units: units, id: id, ownerId: ownerId)
+                    if !shoppinglist.contains(name) { shoppinglist.append(newShoppinglistItem.name) }
+                }
+            }
+            var ref: DocumentReference? = nil
+            if !shoppinglist.contains(self.nameTextField.text!){
+                ref = db.collection("Shopping_Lists").addDocument(data: [
+                    "ingredient_Name": self.nameTextField.text!,
+                    "amount": self.amountTextField.text!,
+                    "units": self.unitTextField.text!,
+                    "ownerId": Auth.auth().currentUser?.uid,
+                    "shoppingListId": ref?.documentID
+                ]) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        KRProgressHUD.showSuccess(withMessage: "Item has been added to the cart")
+                        print("Document added with ID: \(ref!.documentID)")
+                    }
+                }
+                self.popBack(toControllerType: ShoppingListViewController.self)
+            }
+            else {
+                KRProgressHUD.showWarning(withMessage: "Item already exists in your cart")
+            }
+        }
+        
+    }
     
     // Function to setup inputs container and text fields within
     private func setupInputsContainerView() {

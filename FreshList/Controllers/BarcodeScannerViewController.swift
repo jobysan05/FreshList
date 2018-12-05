@@ -126,9 +126,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     func displayaddItemShoppingViewController(scannedCode: String) {
         let addItemShoppingController = AddToShoppingListViewController()
         getBarData(scannedCode: scannedCode, addShoppingController: addItemShoppingController)
-        navigationController?.pushViewController(addItemShoppingController, animated: true)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.tintColor = UIColor.white
+//        navigationController?.pushViewController(addItemShoppingController, animated: true)
+//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
+//        navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
     
     func getBarData(scannedCode: String, addShoppingController: AddToShoppingListViewController){
