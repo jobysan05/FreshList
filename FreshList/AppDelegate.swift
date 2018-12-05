@@ -16,7 +16,6 @@ import UserNotifications
 
 struct defaultsKeys {
     static let keyOne = "firstStringKey"
-    static let isAppAlreadyLaunchedOnce = false
     static let flags = "0"
 }
 @UIApplicationMain
@@ -28,11 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = MainNavigationController()
+        window?.makeKeyAndVisible()
+        
         let defaults = UserDefaults.standard
         
         // Initialize Firebase within app
         FirebaseApp.configure()
         
+        // BEGIN Setup of push notifications
         // Check iOS version to determine notification methods
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -47,61 +51,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
         }
-        
         application.registerForRemoteNotifications()
         
-        // Check if app has been launched once already
-        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
-            print("App already launched")
-            window = UIWindow(frame: UIScreen.main.bounds)
-//            window?.rootViewController = CustomTabBarController()
-            window?.rootViewController = OnboardingController()
-            window?.makeKeyAndVisible()
-            Messaging.messaging().delegate = self as? MessagingDelegate
-            InstanceID.instanceID().instanceID { (result, error) in
-                if let error = error {
-                    print("Error fetching remote instange ID: \(error)")
-                } else if let result = result {
-                    print("Remote instance ID token: \(result.token)")
-                }
+        Messaging.messaging().delegate = self as? MessagingDelegate
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
             }
-            Messaging.messaging().isAutoInitEnabled = true
-            
-            // Get rid of shadow under navigation bar
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-            
-            // Change highlight color of tab bar buttons
-            let darkGreen: UIColor = UIColor(r: 48,g: 89, b: 23)
-            UITabBar.appearance().tintColor = darkGreen
-            
-            // Change font color in status bar to white and make background darker
-            var preferredStatusBarStyle: UIStatusBarStyle {
-                return .lightContent
-            }
-            
-            // Changing the color of the status bar (This doesn't work for iphone X and beyond).
-//            let statusBarBackground = UIView()
-//            statusBarBackground.backgroundColor = UIColor(r: 98, g: 141, b: 73)
-//            window?.addSubview(statusBarBackground)
-//            window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackground)
-//            window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackground)
-            
-            return true
-        } else {
-            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
-            print("App launched first time")
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "OnboardingControllerID") as UIViewController
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            let rootViewController = initialViewController
-            self.window?.rootViewController = rootViewController
-            self.window?.makeKeyAndVisible()
-            
-            return false
+        }
+        Messaging.messaging().isAutoInitEnabled = true
+        // END Setup of push notifications
+
+        // Get rid of shadow under navigation bar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        // Change highlight color of tab bar buttons
+        let darkGreen: UIColor = UIColor(r: 48,g: 89, b: 23)
+        UITabBar.appearance().tintColor = darkGreen
+        
+        // Change font color in status bar to white and make background darker
+        var preferredStatusBarStyle: UIStatusBarStyle {
+            return .lightContent
         }
         
-        
+        return true
     }
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")

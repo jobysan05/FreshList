@@ -9,38 +9,11 @@
 
 import UIKit
 
-protocol CustomTabBarControllerDelegate: class {
-    func isLoggedIn(loggedIn: Bool)
-}
-class CustomTabBarController: UITabBarController, CustomTabBarControllerDelegate {
-    
-    var loggedInStatus: Bool = false
-    
+
+class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(false)
-        print("This is from viewDidAppear \(loggedInStatus)")
-        if loggedInStatus {
-            // Assumed user is logged in
-        } else {
-            perform(#selector(showLoginController), with: nil, afterDelay: 0.0)
-        }
-    }
-    
-    func isLoggedIn(loggedIn: Bool) {
-        self.loggedInStatus = loggedIn
-        print("This is from delegate call \(loggedInStatus)")
-    }
-    
-    @objc func showLoginController() {
-        let loginController = LoginController()
-        loginController.tabBarDelegate = self
-        self.present(loginController, animated: true, completion: {
-            // Something here later
-        })
     }
 
     // Function to set up bottom tab bar

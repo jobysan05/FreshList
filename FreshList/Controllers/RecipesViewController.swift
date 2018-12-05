@@ -147,6 +147,6 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height - 50)
+        return CGSize(width: view.frame.width, height: view.frame.height - 99)
     }
 }

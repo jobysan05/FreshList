@@ -6,19 +6,28 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
-class OnboardingController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+protocol OnboardingControllerDelegate: class {
+    func finishLoggingIn(emailValue: String, passwordValue: String)
+    func finishRegistering(emailValue: String, passwordValue: String, nameValue: String)
+}
+
+class OnboardingController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, OnboardingControllerDelegate {
     
     let cellID: String = "cellID"
     let loginCellID: String = "loginCellID"
     
     let pages: [OnboardingPage] = {
-        let firstPage = OnboardingPage(title: "Welcome To Freshlist", message: "FreshList is an app that makes your time in the kitchen simpler and enjoyable.", imageName: "icons8-organic-food-480")
-        let secondPage = OnboardingPage(title: "Lists on lists on lists", message: "Create and manage shopping lists, lists of what's in your pantry, lists of recipes, and more!", imageName: "icons8-ingredients-480")
-        let thirdPage = OnboardingPage(title: "Don't think, just cook", message: "FreshList provides you with an endless supply of recipes to choose from. Cook all the things!", imageName: "icons8-cooking-book-480")
-        let fourthPage = OnboardingPage(title: "Shop with ease", message: "FreshList provides you with a barcode scanner as well as object detection to make your time at the store hassle-free.", imageName: "bardetect")
+        let firstPage = OnboardingPage(title: "Welcome To Freshlist", message: "FreshList is an app designed to make time spent in the kitchen simpler and more enjoyable.", imageName: "icons8-organic-food-480")
+        let secondPage = OnboardingPage(title: "Keep track of it all", message: "Create and manage shopping lists as well as lists of what's at home in your pantry and fridge.", imageName: "icons8-ingredients-480")
+        let thirdPage = OnboardingPage(title: "Don't think, just cook", message: "Save all your favorite recipes and access them anytime, anywhere.", imageName: "icons8-cooking-book-480")
+        let fourthPage = OnboardingPage(title: "Never waste food again", message: "Keep track of the expiry dates of your ingredients. Use it, don't lose it!", imageName: "icons8-expired-480")
+        let fifthPage = OnboardingPage(title: "Shop with ease", message: "FreshList provides you with a barcode scanner as well as object detection to make your time at the store hassle-free.", imageName: "bardetect")
         
-        return [firstPage, secondPage, thirdPage, fourthPage]
+        
+        return [firstPage, secondPage, thirdPage, fourthPage, fifthPage]
     }()
     
     lazy var onboardingCV: UICollectionView  = {
@@ -85,6 +94,7 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         hideKeyboardOnTap()
         
         observeKeyboardNotifications()
@@ -95,7 +105,6 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
         view.addSubview(nextButton)
         
         setupSubviews()
-        
         registerCells()
         
     }
@@ -131,10 +140,6 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
         } else {
             bringBackPageControlElementsOnScreen()
         }
-        
-//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
     }
     
     private func movePageControlElementsOffScreen() {
@@ -160,6 +165,8 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
         onboardingCV.register(LoginCell.self, forCellWithReuseIdentifier: loginCellID)
     }
     
+    
+    // BEGIN functions for setting up subviews within the view
     func setupSubviews() {
         setupOnboardingCV()
         setupPageControl()
@@ -181,6 +188,7 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
     func setupNextButton() {
         nextButtonTopAnchor = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 50).first
     }
+    // END functions for setting up subviews within the view
     
     // Functions to set up parameters for Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -190,7 +198,8 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.item == pages.count {
-            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellID, for: indexPath)
+            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellID, for: indexPath) as! LoginCell
+            loginCell.delegate = self
             return loginCell
         }
         
@@ -198,6 +207,46 @@ class OnboardingController: UIViewController, UICollectionViewDataSource, UIColl
         let page = pages[indexPath.item]
         cell.page = page
         return cell
+    }
+    
+    func finishLoggingIn(emailValue: String, passwordValue: String) {
+        print("Finish logging in from OnboardingController \n Email: \(emailValue) \n Password: \(passwordValue)")
+        
+            // TODO: add functionality to save username (and maybe email?) to pass through protocol/delegate
+            Auth.auth().signIn(withEmail:  emailValue, password: passwordValue) { (user, error) in
+                if ((error) != nil) {
+                    let alertController = UIAlertController(title: "Error Logging into account !", message:
+                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    let rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                    guard let mainNavigationController = rootViewController as? MainNavigationController else { return }
+                    mainNavigationController.viewControllers = [CustomTabBarController()]
+                    UserDefaults.standard.setisLoggedIn(value: true)
+                    UserDefaults.standard.setUserEmail(value: emailValue)
+                    let user = Auth.auth().currentUser?.uid
+                    UserDefaults.standard.setUserID(value: user!)
+                    self.dismiss(animated: true, completion: nil)
+
+                }
+            }
+    }
+    
+    func finishRegistering(emailValue: String, passwordValue: String, nameValue: String) {
+            Auth.auth().createUser(withEmail: emailValue, password: passwordValue) { (authResult, error) in
+            if ((error) != nil) {
+                let alertController = UIAlertController(title: "Error Registering account !", message:
+                    "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            } else  {
+                let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
+                    "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

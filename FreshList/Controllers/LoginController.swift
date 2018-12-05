@@ -22,7 +22,6 @@ struct userInfo {
 class LoginController: UIViewController, LoginControllerDelegate {
     
     var userInformation: userInfo?
-    var tabBarDelegate: CustomTabBarControllerDelegate?
     // BEGIN Configuration of UI elements for login screen: Logo, login/register toggle, input fields, login/register button
     // Configure Logo
     let logoImageView: UIImageView = {
@@ -81,7 +80,6 @@ class LoginController: UIViewController, LoginControllerDelegate {
     let passwordTextField: UITextField = {
         let tf = UITextField()
         tf.textColor = UIColor.white
-        var pw = tf.text
         tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 230, g: 230, b: 230)])
         tf.isSecureTextEntry = true
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -150,7 +148,6 @@ class LoginController: UIViewController, LoginControllerDelegate {
     
     func finishLoggingIn() {
         print("Successfully logged in.")
-        tabBarDelegate?.isLoggedIn(loggedIn: true)
         self.dismiss(animated: true, completion: nil)
     }
     // Configure skip login button
@@ -167,7 +164,6 @@ class LoginController: UIViewController, LoginControllerDelegate {
     
     // Function called to skip login and go to home screen
     @objc func handleSkipLogin() {
-        tabBarDelegate?.isLoggedIn(loggedIn: true)
         self.dismiss(animated: true, completion: nil)
 
     }

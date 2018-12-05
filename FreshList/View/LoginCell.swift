@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 
 class LoginCell: UICollectionViewCell {
     
@@ -73,7 +71,6 @@ class LoginCell: UICollectionViewCell {
     let passwordTextField: UITextField = {
         let tf = UITextField()
         tf.textColor = UIColor.white
-        var pw = tf.text
         tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 230, g: 230, b: 230)])
         tf.isSecureTextEntry = true
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -97,72 +94,24 @@ class LoginCell: UICollectionViewCell {
         button.setTitleColor(UIColor(r: 48,g: 89, b: 23), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func loginButtonPressed () {
-        print("loginButton pressed")
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
-            return
-        }
-        if loginRegisterSegmentedControl.selectedSegmentIndex == 1 {
-            
-            Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-                if ((error) != nil) {
-                    let alertController = UIAlertController(title: "Error Registering account !", message:
-                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
-//                    self.present(alertController, animated: true, completion: nil)
-                } else  {
-                    let alertController = UIAlertController(title: "Thank you for Signing Up!", message:
-                        "Please login to continue!", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: { action in
-                        self.loginRegisterSegmentedControl.selectedSegmentIndex = 0
-                        self.handleLoginRegisterToggle()
-                        self.passwordTextField.text! = ""
-                    }))
-//                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
-        } else {
-            // TODO: add functionality to save username (and maybe email?) to pass through protocol/delegate
-            Auth.auth().signIn(withEmail:  email, password: password) { (user, error) in
-                if ((error) != nil) {
-                    let alertController = UIAlertController(title: "Error Logging into account !", message:
-                        "\(error!.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
-//                    self.present(alertController, animated: true, completion: nil)
-                } else {
-//                    self.userInformation?.email = self.emailTextField.text!
-                    self.finishLoggingIn()
-                }
-            }
-        }
-    }
-    
-    // Function to complete logging in process
-    func finishLoggingIn() {
-        print("Successfully logged in.")
-//        tabBarDelegate?.isLoggedIn(loggedIn: true)
-//        self.dismiss(animated: true, completion: nil)
-    }
-    // Configure skip login button
-    let skipLoginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Skip For Now", for: .normal)
-        button.setTitleColor(UIColor(r: 230, g: 230, b: 230), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    // Function called to skip login and go to home screen
-    @objc func handleSkipLogin() {
-        print("Skipping login")
-//        tabBarDelegate?.isLoggedIn(loggedIn: true)
-//        self.dismiss(animated: true, completion: nil)
+    // Weak to avoid retain cycles
+    weak var delegate: OnboardingControllerDelegate?
+    
+    @objc func loginButtonPressed () {
+        print("loginButton pressed")
+        
+        if self.loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+            delegate?.finishLoggingIn(emailValue: email, passwordValue: password)
+        } else {
+            guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else { return }
+            delegate?.finishRegistering(emailValue: email, passwordValue: password, nameValue: name)
+        }
+        
         
     }
     
@@ -215,16 +164,13 @@ class LoginCell: UICollectionViewCell {
         addSubview(loginRegisterButton)
         addSubview(logoImageView)
         addSubview(loginRegisterSegmentedControl)
-        addSubview(skipLoginButton)
         
         loginRegisterButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        skipLoginButton.addTarget(self, action: #selector(handleSkipLogin), for: .touchUpInside)
         
         setupInputsContainerView()
         setupLoginRegisterButton()
         setupLogoImageView()
         setupLoginRegisterSegmentedControl()
-        setupSkipLoginButton()
     }
     
     private func setupView() {
@@ -320,13 +266,6 @@ class LoginCell: UICollectionViewCell {
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -48).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    }
-    
-    // Function to set up boundaries and positioning for skip login button
-    private func setupSkipLoginButton() {
-        // Set up X, Y, width, and height constraints for skip login button
-        skipLoginButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        skipLoginButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 30).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

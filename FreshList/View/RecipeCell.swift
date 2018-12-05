@@ -93,7 +93,6 @@ class RecipeCell: BaseCell {
         addSubview(subtitleTextView)
         
         addConstraintsWithFormat(format: "H:|-0-[v0]-0-|", views: thumbnailImageView)
-        
         addConstraintsWithFormat(format: "H:|-8-[v0(44)]", views: favoriteButton)
         
         //vertical constraints

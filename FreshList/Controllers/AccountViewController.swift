@@ -57,15 +57,11 @@ class AccountViewController: UIViewController {
         
         logoutAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             // TODO: Add Firebase functionality to log out
-            let firebaseAuth = Auth.auth()
-            do {
-                print("loggin out")
-                try firebaseAuth.signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-            }
-            let loginController = LoginController()
-            self.present(loginController, animated: true, completion: nil)
+            print("UserEmail: \(UserDefaults.standard.getUserEmail())")
+            print("UserID: \(UserDefaults.standard.getUserID())")
+            self.signOutFromFirebase()
+            
+            
         }))
         
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -74,6 +70,22 @@ class AccountViewController: UIViewController {
         
         present(logoutAlert, animated: true, completion: nil)
         
+    }
+    
+    func signOutFromFirebase() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            updateUserDefaults()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        let loginController = LoginController()
+        self.present(loginController, animated: true, completion: nil)
+    }
+    
+    func updateUserDefaults() {
+        UserDefaults.standard.setisLoggedIn(value: false)
     }
     
     override func viewDidLoad() {

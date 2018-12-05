@@ -109,7 +109,7 @@ class AddToIngredientsViewController: UIViewController {
         view.addSubview(inputsContainerView)
         
         setupView()
-        setupNavigationBar(title: "Add Item")
+        setupNavigationBar(title: "New Item")
         setupInputsContainerView()
         
     }
@@ -138,7 +138,7 @@ class AddToIngredientsViewController: UIViewController {
     // Function to set up add item button in navigation bar
     private func setupAddItemButton() {
         // Configuration for add ingredient button
-        let addItemButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(handleConfirmAdd))
+        let addItemButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleConfirmAdd))
         addItemButton.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = addItemButton
     }
