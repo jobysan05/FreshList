@@ -64,7 +64,7 @@ class CustomTabBarController: UITabBarController {
         // Ingredients Tab Button
         let ingredientsController = IngredientsViewController()
         let ingredientsNavigationController = UINavigationController(rootViewController: ingredientsController)
-        ingredientsNavigationController.title = "Ingredients"
+        ingredientsNavigationController.title = "Pantry"
         ingredientsNavigationController.tabBarItem.image = UIImage(named: "ingredientsicon")
 
         // Recipes List Tab Button
