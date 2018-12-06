@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
 
 class RecipeFeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -20,30 +23,36 @@ class RecipeFeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSo
         return cv
     }()
     
-    var recipes: [Recipe] = {
-        var lasagnaRecipe = Recipe()
-        lasagnaRecipe.title = "Lasagna"
-        lasagnaRecipe.thumbnailImageString = "lasagna_img"
-        lasagnaRecipe.briefDescription = "It's lasagna"
-        
-        var icecreamrecipe = Recipe()
-        icecreamrecipe.title = "This is a really long recipe name to show the lines wrap"
-        icecreamrecipe.thumbnailImageString = "icecream_img"
-        icecreamrecipe.briefDescription = "It's ice cream"
-        
-        return [lasagnaRecipe, icecreamrecipe]
-    }()
+    var recipes: [Recipe]?
     
     let cellID = "cellID"
     
     func fetchRecipes() {
-        // TODO: Implement APIService sharedInstance method here
+        let db = Firestore.firestore()
+        let user = Auth.auth().currentUser?.uid
+        db.collection("FreshList_Add_Recipes").whereField("ownerId", isEqualTo: user!).addSnapshotListener { documentSnapshot, error in
+            guard let doc_val = documentSnapshot else {
+                return
+            }
+            for doc in doc_val.documents {
+                let data = doc.data()
+                let recipeName = data["recipe_Name"] as? String ?? ""
+                let recipeInstructions = data["recipe_Instructions"] as? String ?? ""
+                let recipeIngredients = data["recipe_Ingredients"] as? String ?? ""
+                let newRecipe = Recipe(title: recipeName, recipeIngredients: recipeIngredients, recipeInstructions: recipeInstructions, thumbnailImageString: "", briefDescription: "")
+                print("\(recipeName)")
+                self.recipes?.append(newRecipe)
+                for i in self.recipes! {
+                    print(i.title)
+                }
+            }
+            self.collectionView.reloadData()
+        }
     }
     
     override func setupViews() {
         super.setupViews()
         fetchRecipes()
-//        fetchRecipes(query:"chicken%20breast", pageNumber:2)
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
@@ -53,20 +62,15 @@ class RecipeFeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSo
     
     // BEGIN configuration of cells in collectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        fetchRecipes()
+        return recipes!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RecipeCell
-        cell.recipe = recipes[indexPath.item]
-        //        var querys = "chicken breast"
-        //        let replacedquery = querys.replacingOccurrences(of: " ", with: "%20",
-        //                                                        options: NSString.CompareOptions.literal, range:nil)
-        //
-        //
-        //        getData(query:replacedquery, pageNumber:3)
-        //        print("recipe_data1recipe_data1")
-        return cell    }
+        cell.recipe = recipes![indexPath.item]
+        return cell
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (frame.width - 32) * (9/16)

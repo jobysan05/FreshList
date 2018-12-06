@@ -16,6 +16,16 @@ import FirebaseFirestore
 
 class AddToRecipesViewController: UIViewController {
     
+    let scrollView: UIScrollView = {
+        let screensize: CGRect = UIScreen.main.bounds
+        let screenWidth = screensize.width
+        let screenHeight = screensize.height
+        let v = UIScrollView()
+        v.contentSize = CGSize(width: screenWidth - 16, height: screenHeight * 1.3)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
     // Configure inputs container
     let recipeInputsContainerView: UIView = {
         let view = UIView()
@@ -91,8 +101,15 @@ class AddToRecipesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(scrollView)
         
-        view.addSubview(recipeInputsContainerView)
+        // constrain the scroll view to 8-pts on each side
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8.0).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8.0).isActive = true
+        
+        hideKeyboardOnTap()
         setupView()
         setupNavigationBar(title: "Add Recipe")
         setupInputsContainerView()
@@ -121,7 +138,7 @@ class AddToRecipesViewController: UIViewController {
     // Function to set up add item button in navigation bar
     private func setupConfirmAddItemButton() {
         // Configuration for add ingredient button
-        let confirmAddItemButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(handleConfirmAdd))
+        let confirmAddItemButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleConfirmAdd))
         confirmAddItemButton.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = confirmAddItemButton
     }
@@ -145,51 +162,48 @@ class AddToRecipesViewController: UIViewController {
     }
     
     private func setupInputsContainerView() {
-        // Set up X, Y, width, and height constraints for inputs container
-        recipeInputsContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
-        recipeInputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        recipeInputsContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -24).isActive = true
-        recipeInputsContainerView.addSubview(recipeNameTextField)
+
+        scrollView.addSubview(recipeNameTextField)
         // Set up X, Y, width, and height constraints for recipe name text field
-        recipeNameTextField.leftAnchor.constraint(equalTo: recipeInputsContainerView.leftAnchor, constant: 12).isActive = true
-        recipeNameTextField.topAnchor.constraint(equalTo: recipeInputsContainerView.topAnchor).isActive = true
+        recipeNameTextField.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0).isActive = true
+        recipeNameTextField.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         recipeNameTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2/3).isActive = true
         recipeNameTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        recipeInputsContainerView.addSubview(recipeNameSeparatorView)
+        scrollView.addSubview(recipeNameSeparatorView)
         // Set up X, Y, width, and height constraints for line under recipe name field
-        recipeNameSeparatorView.leftAnchor.constraint(equalTo: recipeInputsContainerView.leftAnchor, constant: 12).isActive = true
+        recipeNameSeparatorView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0).isActive = true
         recipeNameSeparatorView.topAnchor.constraint(equalTo: recipeNameTextField.bottomAnchor).isActive = true
         recipeNameSeparatorView.widthAnchor.constraint(equalTo: recipeNameTextField.widthAnchor).isActive = true
         recipeNameSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        recipeInputsContainerView.addSubview(ingredientsLabel)
+        scrollView.addSubview(ingredientsLabel)
         // Set up X, Y, width, and height constraints for ingredients label
-        ingredientsLabel.leftAnchor.constraint(equalTo: recipeInputsContainerView.leftAnchor, constant: 12).isActive = true
+        ingredientsLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0).isActive = true
         ingredientsLabel.topAnchor.constraint(equalTo: recipeNameTextField.bottomAnchor, constant: 40).isActive = true
-        ingredientsLabel.widthAnchor.constraint(equalTo: recipeInputsContainerView.widthAnchor, constant: -12).isActive = true
+        ingredientsLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -12).isActive = true
         ingredientsLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        recipeInputsContainerView.addSubview(ingredientTextField)
+        scrollView.addSubview(ingredientTextField)
         // Set up X, Y, width, and height constraints for ingredients text field
-        ingredientTextField.leftAnchor.constraint(equalTo: recipeInputsContainerView.leftAnchor, constant: 12).isActive = true
+        ingredientTextField.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0).isActive = true
         ingredientTextField.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 4).isActive = true
-        ingredientTextField.widthAnchor.constraint(equalTo: recipeInputsContainerView.widthAnchor, constant: -12).isActive = true
-        ingredientTextField.heightAnchor.constraint(equalTo: recipeInputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
+        ingredientTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -12).isActive = true
+        ingredientTextField.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 1/3).isActive = true
         
-        recipeInputsContainerView.addSubview(instructionsLabel)
+        scrollView.addSubview(instructionsLabel)
         // Set up X, Y, width, and height constraints for instructions label
-        instructionsLabel.leftAnchor.constraint(equalTo: recipeInputsContainerView.leftAnchor, constant: 12).isActive = true
+        instructionsLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0).isActive = true
         instructionsLabel.topAnchor.constraint(equalTo: ingredientTextField.bottomAnchor, constant: 40).isActive = true
-        instructionsLabel.widthAnchor.constraint(equalTo: recipeInputsContainerView.widthAnchor, constant: -12).isActive = true
+        instructionsLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -12).isActive = true
         instructionsLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        recipeInputsContainerView.addSubview(recipeInstructionsTextField)
+        scrollView.addSubview(recipeInstructionsTextField)
         // Set up X, Y, width, and height constraints for instructions text field
-        recipeInstructionsTextField.leftAnchor.constraint(equalTo: recipeInputsContainerView.leftAnchor, constant: 12).isActive = true
+        recipeInstructionsTextField.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0).isActive = true
         recipeInstructionsTextField.topAnchor.constraint(equalTo: instructionsLabel.bottomAnchor, constant: 4).isActive = true
-        recipeInstructionsTextField.widthAnchor.constraint(equalTo: recipeInputsContainerView.widthAnchor, constant: -12).isActive = true
-        recipeInstructionsTextField.heightAnchor.constraint(equalTo: recipeInputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
+        recipeInstructionsTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -12).isActive = true
+        recipeInstructionsTextField.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 1/3).isActive = true
     }
     
 }

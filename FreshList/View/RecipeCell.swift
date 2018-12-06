@@ -1,15 +1,16 @@
+
 //
 //  RecipeCell.swift
 //  FreshList
 //
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
 //
-
 import UIKit
 
 // Class for cells in collection view for Recipes view
 class RecipeCell: BaseCell {
-    
+    var recipeInstructions: String?
+    var recipeIngredients: String?
     var recipe: Recipe? {
         didSet {
             if let recipeTitle = recipe?.title {
@@ -22,6 +23,14 @@ class RecipeCell: BaseCell {
             
             if let description = recipe?.briefDescription {
                 subtitleTextView.text = description
+            }
+            
+            if let instructions = recipe?.recipeInstructions {
+                self.recipeInstructions = instructions
+            }
+            
+            if let ingredients = recipe?.recipeIngredients {
+                self.recipeIngredients = ingredients
             }
             
             // Measuring title text
@@ -40,11 +49,11 @@ class RecipeCell: BaseCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "lasagna_img")
+        imageView.image = UIImage(named: "icons8-organic-food-480")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
-    }()
+    }()    
     
     let separatorView: UIView = {
         let view = UIView()
@@ -54,7 +63,7 @@ class RecipeCell: BaseCell {
     
     let recipeTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lasagna"
+        label.text = ""
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         return label
@@ -62,9 +71,10 @@ class RecipeCell: BaseCell {
     
     let subtitleTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Idk what to put here"
+        textView.text = ""
         textView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         textView.textColor = UIColor.lightGray
+        textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -75,9 +85,11 @@ class RecipeCell: BaseCell {
         addSubview(thumbnailImageView)
         addSubview(separatorView)
         addSubview(recipeTitleLabel)
-        // FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX
-        // FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX
+        addSubview(subtitleTextView)
+        
         addConstraintsWithFormat(format: "H:|-0-[v0]-0-|", views: thumbnailImageView)
+        
+        addConstraintsWithFormat(format: "H:|-8-[v0]-0-|", views: recipeTitleLabel)
         
         //vertical constraints
         addConstraintsWithFormat(format: "V:|-0-[v0]-8-[v1]-28-[v2(1)]|", views: thumbnailImageView, recipeTitleLabel, separatorView)
@@ -86,8 +98,6 @@ class RecipeCell: BaseCell {
         
         //top constraint
         addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
-        //left constraint
-        addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .left, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 8))
         //right constraint
         addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         //height constraint
@@ -97,11 +107,10 @@ class RecipeCell: BaseCell {
         //top constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: recipeTitleLabel, attribute: .bottom, multiplier: 1, constant: 4))
         //left constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 8))
+        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 8))
         //right constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         //height constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))
     }
 }
-
