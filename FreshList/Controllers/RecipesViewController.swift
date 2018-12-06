@@ -10,10 +10,6 @@
 // TODO: Add protocol/delegate functionality for adding items to ShoppingListViewController user shopping list.
 // TODO: Add functionality to check DB if user has required ingredients
 // TODO: Add functionalities to add/retrieve recipes from DB
-// TODO: Finish up API query functionalities
-// TODO: Finish up Favorites list functionalities
-    // Maybe just save all the data about a favorite recipe to the user's favorite recipes table.
-    // Or just save the link to that and load it every time by querying API.
 
 import UIKit
 
@@ -24,50 +20,16 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        setupMenuBar()
         setupNavigationBar(title: "Recipes")
     }
     private func setupCollectionView() {
-        
-        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .horizontal
-            flowLayout.minimumLineSpacing = 0
-        }
         
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(RecipeFeedCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView?.isPagingEnabled = true
     }
     
-    // BEGIN setup of menu bar
-    lazy var recipesMenuBar: RecipesMenuBar = {
-        let menubar = RecipesMenuBar()
-        menubar.recipesViewController = self
-        return menubar
-    }()
-    
-    private func setupMenuBar() {
-        let greenView = UIView()
-        greenView.backgroundColor = UIColor(r: 128, g: 171, b: 103)
-        
-        view.addSubview(greenView)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: greenView)
-        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: greenView)
-        
-        view.addSubview(recipesMenuBar)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: recipesMenuBar)
-        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: recipesMenuBar)
-        
-        recipesMenuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-    }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        recipesMenuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 3
-    }
-    
-    // END setup of menu bar
     
     // Function called to set up Navigation Bar
     private func setupNavigationBar(title: String) {
@@ -140,9 +102,6 @@ class RecipesViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let index = targetContentOffset.pointee.x / view.frame.width
-        let indexPath = IndexPath(item: Int(index), section: 0)
-        recipesMenuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         
     }
     

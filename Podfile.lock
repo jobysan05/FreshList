@@ -118,8 +118,10 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PickerView (0.4.0)
   - Protobuf (3.6.1)
   - SwiftyJSON (4.2.0)
+  - "UITextView+Placeholder (1.2.1)"
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -128,7 +130,9 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
+  - PickerView
   - SwiftyJSON (~> 4.0)
+  - "UITextView+Placeholder"
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -151,8 +155,10 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - PickerView
     - Protobuf
     - SwiftyJSON
+    - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
@@ -174,9 +180,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PickerView: a736ea986d992aa3ef32423f475fdf3f3a0cf7d4
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 2d1164002765e5f9ecf24f6b28e1f177fb4db151
+PODFILE CHECKSUM: d0eed2d460587d541a1f832920f6b6dd8595db77
 
 COCOAPODS: 1.5.3

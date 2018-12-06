@@ -46,20 +46,6 @@ class RecipeCell: BaseCell {
         return imageView
     }()
     
-    let favoriteButton: UIButton = {
-        let button = UIButton(type: .custom)
-        var emptyHeartImg = UIImage(named: "emptyheart")
-        var fullHeartImg = UIImage(named: "fullheart")
-        let lightGreen = UIColor(r: 128, g: 171, b: 103)
-        emptyHeartImg = emptyHeartImg?.maskWithColor(color: lightGreen)
-        fullHeartImg = fullHeartImg?.maskWithColor(color: lightGreen)
-        button.setImage(emptyHeartImg, for: .normal)
-        button.setImage(fullHeartImg, for: .selected)
-        button.imageView?.contentMode = .scaleAspectFill
-        return button
-    }()
-    
-    
     let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 230, g: 230, b: 230)
@@ -88,22 +74,20 @@ class RecipeCell: BaseCell {
     override func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(separatorView)
-        addSubview(favoriteButton)
         addSubview(recipeTitleLabel)
-        addSubview(subtitleTextView)
-        
+        // FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX
+        // FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX FIX
         addConstraintsWithFormat(format: "H:|-0-[v0]-0-|", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "H:|-8-[v0(44)]", views: favoriteButton)
         
         //vertical constraints
-        addConstraintsWithFormat(format: "V:|-0-[v0]-8-[v1(44)]-28-[v2(1)]|", views: thumbnailImageView, favoriteButton, separatorView)
+        addConstraintsWithFormat(format: "V:|-0-[v0]-8-[v1]-28-[v2(1)]|", views: thumbnailImageView, recipeTitleLabel, separatorView)
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
         
         //top constraint
         addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
         //left constraint
-        addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .left, relatedBy: .equal, toItem: favoriteButton, attribute: .right, multiplier: 1, constant: 8))
+        addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .left, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 8))
         //right constraint
         addConstraint(NSLayoutConstraint(item: recipeTitleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         //height constraint
@@ -113,7 +97,7 @@ class RecipeCell: BaseCell {
         //top constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: recipeTitleLabel, attribute: .bottom, multiplier: 1, constant: 4))
         //left constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: favoriteButton, attribute: .right, multiplier: 1, constant: 8))
+        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 8))
         //right constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         //height constraint

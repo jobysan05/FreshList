@@ -31,7 +31,7 @@ class AccountViewController: UIViewController {
         let label = UILabel()
         label.text = "Username"
         label.textColor = UIColor.black
-        label.font = .boldSystemFont(ofSize: 30.0)
+        label.font = .boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,8 +60,6 @@ class AccountViewController: UIViewController {
             print("UserEmail: \(UserDefaults.standard.getUserEmail())")
             print("UserID: \(UserDefaults.standard.getUserID())")
             self.signOutFromFirebase()
-            
-            
         }))
         
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -80,8 +78,8 @@ class AccountViewController: UIViewController {
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
-        let loginController = LoginController()
-        self.present(loginController, animated: true, completion: nil)
+        let onboardingController = OnboardingController()
+        self.present(onboardingController, animated: true, completion: nil)
     }
     
     func updateUserDefaults() {
@@ -90,11 +88,10 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(usernameLabel)
         view.addSubview(userIcon)
         view.addSubview(logoutButton)
-        
+        usernameLabel.text! = UserDefaults.standard.getUserEmail()
         setupView()
         setupNavigationBar(title: "FreshList")
         

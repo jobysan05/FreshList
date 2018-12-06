@@ -59,8 +59,6 @@ class RecipeFeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RecipeCell
         cell.recipe = recipes[indexPath.item]
-        cell.favoriteButton.tag = indexPath.row
-        cell.favoriteButton.addTarget(self, action: #selector(handleFavorite(sender:)), for: .touchUpInside)
         //        var querys = "chicken breast"
         //        let replacedquery = querys.replacingOccurrences(of: " ", with: "%20",
         //                                                        options: NSString.CompareOptions.literal, range:nil)
@@ -79,18 +77,4 @@ class RecipeFeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSo
         return 0
     }
     // END configuration for cells in collectionView
-    
-    // Function to add
-    @objc private func handleFavorite(sender: UIButton) {
-        if (sender.isSelected == true) {
-            sender.isSelected = false
-            // TODO: Add functionality to remove the recipe from that user's favorites list
-        } else {
-            sender.isSelected = true
-            // TODO: Add functionality to add the recipe to that user's favorites list
-        }
-        print(sender.isSelected)
-    }
-
-    
 }

@@ -54,18 +54,12 @@ class CustomTabBarController: UITabBarController {
         recipesNavigationController.title = "Recipes"
         recipesNavigationController.tabBarItem.image = UIImage(named: "recipesicon")
         
-        // Stats Tab Button
-        let statsController = StatsViewController()
-        let statsNavigationController = UINavigationController(rootViewController: statsController)
-        statsNavigationController.title = "Statistics"
-        statsNavigationController.tabBarItem.image = UIImage(named: "statsicon")
-        
         // Account Tab Button
         let accountController = AccountViewController()
         let accountNavigationController = UINavigationController(rootViewController: accountController)
         accountNavigationController.title = "Account"
         accountNavigationController.tabBarItem.image = UIImage(named: "accounticon")
         
-        viewControllers = [shoppingListNavigationController, ingredientsNavigationController, recipesNavigationController, statsNavigationController, accountNavigationController]
+        viewControllers = [shoppingListNavigationController, ingredientsNavigationController, recipesNavigationController, accountNavigationController]
     }
 }

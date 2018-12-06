@@ -12,5 +12,7 @@ pod 'SwiftyJSON', '~> 4.0'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Messaging'
+pod 'PickerView'
+pod 'UITextView+Placeholder'
 
 end
