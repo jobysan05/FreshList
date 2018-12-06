@@ -45,11 +45,5 @@ class ShoppingItemTableViewCell: SwipeTableViewCell {
 
         // Configure the view for the selected state
     }
-
-    
-    
-    func bindData(item: ShoppingList) {
-        
-    }
     
 }

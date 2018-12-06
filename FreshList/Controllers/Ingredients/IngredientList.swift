@@ -14,31 +14,22 @@ import FirebaseAuth
 class IngredientList {
     let ingredientname: String
     let quantity: Float
+    var units: String
     let category: String
-    var expirydate: Date
-    var id: String
+    var expirydate: String
+    var documentid: String
     var ownerId: String    //To know which owner the item belongs to
+    var isBought: Bool
     
-    init(_ingredientname: String, _quantity: Float = 0, _category: String = "", _expirydate: Date = Date(), _id: String = "") {
-        ingredientname = _ingredientname
-        quantity = _quantity
-        category = _category
-        expirydate = _expirydate
-        id = _id
-        ownerId = "1234"
-    }
-    
-    init(dictionary: NSDictionary) {
-        ingredientname = dictionary[kINGREDIENTNAME] as! String
-        quantity = dictionary[kQUANTITY] as! Float
-        category = dictionary[kCATEGORY] as! String
-        expirydate = dictionary[kEXPIRYDATE] as! Date
-        id = dictionary[kSHOPPINGLISTID] as! String
-        ownerId = dictionary[kOWNERID] as! String
-    }
-    
-    func dictionaryFromitem(item: ShoppingList) -> NSDictionary {
-        return NSDictionary(objects: [item.name, item.amount, item.units, item.id, item.ownerId], forKeys: [kNAME as NSCopying, kAMOUNT as NSCopying, kUNITS as NSCopying, kSHOPPINGLISTID as NSCopying, kOWNERID as NSCopying])
+    init(ingredientname: String, quantity: Float = 0, category: String = "", expirydate: String = "", documentid: String, ownerId: String, units: String = "") {
+        self.ingredientname = ingredientname
+        self.quantity = quantity
+        self.category = category
+        self.expirydate = expirydate
+        self.documentid = documentid
+        self.ownerId = ownerId
+        isBought = false
+        self.units = units
     }
     
 }

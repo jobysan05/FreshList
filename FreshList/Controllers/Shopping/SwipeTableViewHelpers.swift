@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 enum ActionDescriptor {
-    case bought, returnitem, trash
+    case bought, returnitem, trash, pantry, list
     
     func title() -> String? {
         
@@ -18,6 +18,8 @@ enum ActionDescriptor {
         case.bought: return "Bought"
         case.returnitem: return "Return"
         case.trash: return "Trash"
+        case .pantry: return "ChecklistFilled"
+        case .list: return "ShoppingCartFull"
             
         }
     }
@@ -29,6 +31,8 @@ enum ActionDescriptor {
         case .bought: name = "BuyFilled"
         case .returnitem: name = "ReturnFilled"
         case .trash: name = "Trash"
+        case .pantry: name = "ShoppingCartFull"
+        case .list: name = "ChecklistFilled"
             
         }
         return UIImage(named: name)
@@ -39,7 +43,8 @@ enum ActionDescriptor {
         switch self {
         case .bought, .returnitem: return UIColor(r: 128, g: 171, b: 103)
         case .trash: return .red
-            
+        case .pantry, .list: return UIColor(r: 128, g: 171, b: 103)
+        
         }
     }
 }

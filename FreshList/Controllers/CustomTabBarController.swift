@@ -19,7 +19,6 @@ class CustomTabBarController: UITabBarController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print("Peekaboo!")
         if isLoggedIn() {
             //             Assume user is logged in
         } else {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 
 // Make it easier to specify RGB for UIColor constructor
@@ -69,5 +70,17 @@ extension UIViewController {
                 }
             }
         }
+    }
+}
+
+
+extension String {
+    var firstCapitalized: String {
+        var components = self.components(separatedBy: " ")
+        guard let first = components.first else {
+            return self
+        }
+        components[0] = first.capitalized
+        return components.joined(separator: " ")
     }
 }

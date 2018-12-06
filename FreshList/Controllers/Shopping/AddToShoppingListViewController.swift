@@ -154,9 +154,9 @@ class AddToShoppingListViewController: UIViewController {
                     let units = data["units"] as? String ?? ""
                     let amount = data["amount"] as? Float ?? 0
                     let ownerId = data["ownerId"] as? String ?? ""
-                    let id = data["shoppingListId"] as? String ?? ""
+                    let documentid = data["shoppingListId"] as? String ?? ""
                     
-                    let newShoppinglistItem  = ShoppingList(_name: name, _amount: amount, _units: units, id: id, ownerId: ownerId)
+                    let newShoppinglistItem  = ShoppingListItem(name: name, amount: amount, units: units, documentid: documentid, ownerId: ownerId)
                     if !shoppinglist.contains(name) { shoppinglist.append(newShoppinglistItem.name) }
                 }
             }
