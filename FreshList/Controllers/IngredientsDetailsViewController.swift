@@ -214,29 +214,54 @@ class IngredientsDetailsViewController: UIViewController, UIPickerViewDataSource
     }
     
     func validateInput() {
+        var nameAndAmountAreValid: Bool = false
+        var amountTypeIsValid: Bool = false
+        var dateIsValid: Bool = false
+        
+        
         if (nameTextField.text! == "" || amountTextField.text! == "") {
             let alertController = UIAlertController(title: "Missing fields!", message:
                 "Please fill in at least ingredient name and amount.", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
+            return
+        } else {
+            nameAndAmountAreValid = true
         }
         
-        if let isInt = Int(amountTextField.text!) as Int? {
-            print(isInt)
-            pushToFireBase()
-            self.popBack(toControllerType: ShoppingListViewController.self)
-        } else if let isFloat = Float(amountTextField.text!) as Float? {
-            print(isFloat)
-            pushToFireBase()
-            self.popBack(toControllerType: ShoppingListViewController.self)
+        if (Int(amountTextField.text!) as Int?) != nil {
+            amountTypeIsValid = true
+        } else if (Float(amountTextField.text!) as Float?) != nil {
+            amountTypeIsValid = true
         } else {
             let alertController = UIAlertController(title: "Incorrect input!", message:
                 "The amount must be a number.", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
+            return
         }
         
+        let currentDate = Date()
+        if (expiryDateTextField.text! != "") && expiryDatePicker.date > currentDate {
+            dateIsValid = true
+        } else {
+            let alertController = UIAlertController(title: "Incorrect input!", message:
+                "The expiry date can't be in the past.", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
         
+        if (nameAndAmountAreValid && amountTypeIsValid && dateIsValid) {
+            pushToFireBase()
+            self.popBack(toControllerType: ShoppingListViewController.self)
+        } else {
+            let alertController = UIAlertController(title: "Incorrect input!", message:
+                "Please double check at least name, amount, and expiry date are correct.", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
     }
     
     func pushToFireBase() {
