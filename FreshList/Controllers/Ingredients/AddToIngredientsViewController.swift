@@ -1,5 +1,5 @@
 //
-//  AddToShoppingListViewController.swift
+//  AddToIngredientsViewController.swift
 //  FreshList
 //
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
@@ -8,16 +8,18 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import UITextView_Placeholder
 
-// TODO: add protocol/delegate functionality for firebase auth 
-// TODO: add protocol/delegate functionality for adding item to ShoppingListViewController user list.
+// TODO: add protocol/delegate functionality for firebase auth
+// TODO: add protocol/delegate functionality for adding item to IngredientsViewController user list.
+// TODO: Figure out how to get rid of whitespace
+    // Maybe make this view show up as a pop up on top of ingredients like in Out Of Milk when you click on item details for an item.
 
-
-class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let units = ["None", "lbs", "qt", "pts", "oz", "cup", "gallon", "tbsp", "tsp", "mg", "g", "kg", "piece", "bag", "bottle", "box", "can", "each"]
     let categories =  ["None", "Dairy", "Grains", "Meat", "Fruits", "Vegetables", "Canned", "Other"]
-    
+   
     // Configure inputs container
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -79,7 +81,7 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
     // Configure expiry date text field
     // TODO: change to date input type
     lazy var expiryDateTextField: UITextField = {
-        let expTF = UITextField()
+       let expTF = UITextField()
         expTF.textColor = UIColor.black
         expTF.attributedPlaceholder = NSAttributedString(string: "Expiry Date", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 180, g: 180, b: 180)])
         expTF.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +90,7 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
         
         return expTF
     }()
-    
+
     lazy var expiryDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
@@ -117,14 +119,12 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
     }()
     
     lazy var unitPicker: UIPickerView = {
-        let unitPicker = UIPickerView()
+       let unitPicker = UIPickerView()
         unitPicker.backgroundColor = UIColor(white: 0.97, alpha: 1)
         unitPicker.delegate = self
         return unitPicker
     }()
     
-    
-     
     let unitSeparatorView: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor.black
@@ -169,7 +169,6 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(inputsContainerView)
         
         hideDatePickerOnTap()
@@ -182,6 +181,7 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
     // Function to setup basic view elements
     private func setupView() {
         view.backgroundColor = UIColor.white
+        
     }
     
     // Function to set up navigation bar
@@ -197,20 +197,19 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
     
     // Function to set up items in navigation bar
     private func setupNavigationBarItems() {
-        let addItemButton = setupAddItemButton()
-        navigationItem.rightBarButtonItem = addItemButton
+        setupAddItemButton()
     }
     
+    
     // Function to set up add item button in navigation bar
-    private func setupAddItemButton() -> UIBarButtonItem {
+    private func setupAddItemButton() {
         // Configuration for add ingredient button
         let addItemButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleConfirmAdd))
         addItemButton.tintColor = UIColor.white
-        return addItemButton
+        navigationItem.rightBarButtonItem = addItemButton
     }
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
-        // TODO: Validate user input (date, empty fields, etc.)
         validateInput()
         
     }
@@ -269,12 +268,19 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
     func pushToFireBase() {
         let db = Firestore.firestore()
         var ref: DocumentReference? = nil
-        ref = db.collection("Shopping_Lists").addDocument(data: [
+        let user = Auth.auth().currentUser?.uid
+        db.collection("FreshList_Ingredients").document(user!).collection("ITEMS").document().setData ([
             "Ingredient_name": nameTextField.text!,
             "Quantity": amountTextField.text!,
+<<<<<<< HEAD:FreshList/Controllers/AddToIngredientsViewController.swift
             "Units": unitTextField.text!,
             "Category": categoryTextField.text!,
             "Expiry_date": expiryDateTextField.text!
+=======
+            "Category": "Unknown",
+            "Expiry_date": expiryDateTextField.text!,
+            "ownerId": Auth.auth().currentUser?.uid,
+>>>>>>> searchFxn:FreshList/Controllers/Ingredients/AddToIngredientsViewController.swift
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -283,11 +289,11 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
             }
         }
     }
-    
+
     // Function to setup inputs container and text fields within
     private func setupInputsContainerView() {
         // Set up X, Y, width, and height constraints for inputs container
-        //        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         inputsContainerView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
@@ -387,4 +393,5 @@ class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource,
             categoryTextField.text = categories[row]
         }
     }
+    
 }

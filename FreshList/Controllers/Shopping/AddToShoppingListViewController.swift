@@ -1,5 +1,5 @@
 //
-//  AddToIngredientsViewController.swift
+//  AddToShoppingListViewController.swift
 //  FreshList
 //
 //  Copyright © 2018 ubiqteam7fall. All rights reserved.
@@ -8,18 +8,21 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
-import UITextView_Placeholder
+import FirebaseAuth
+import KRProgressHUD
 
-// TODO: add protocol/delegate functionality for firebase auth
-// TODO: add protocol/delegate functionality for adding item to IngredientsViewController user list.
-// TODO: Figure out how to get rid of whitespace
-    // Maybe make this view show up as a pop up on top of ingredients like in Out Of Milk when you click on item details for an item.
+// TODO: add protocol/delegate functionality for firebase auth 
+// TODO: add protocol/delegate functionality for adding item to ShoppingListViewController user list.
 
-class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+
+class AddToShoppingListViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let units = ["None", "lbs", "qt", "pts", "oz", "cup", "gallon", "tbsp", "tsp", "mg", "g", "kg", "piece", "bag", "bottle", "box", "can", "each"]
     let categories =  ["None", "Dairy", "Grains", "Meat", "Fruits", "Vegetables", "Canned", "Other"]
-   
+    
+    let db = Firestore.firestore()
+    
+    
     // Configure inputs container
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -81,7 +84,7 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
     // Configure expiry date text field
     // TODO: change to date input type
     lazy var expiryDateTextField: UITextField = {
-       let expTF = UITextField()
+        let expTF = UITextField()
         expTF.textColor = UIColor.black
         expTF.attributedPlaceholder = NSAttributedString(string: "Expiry Date", attributes: [NSAttributedString.Key.foregroundColor: UIColor(r: 180, g: 180, b: 180)])
         expTF.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +93,7 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
         
         return expTF
     }()
-
+    
     lazy var expiryDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
@@ -119,12 +122,14 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
     }()
     
     lazy var unitPicker: UIPickerView = {
-       let unitPicker = UIPickerView()
+        let unitPicker = UIPickerView()
         unitPicker.backgroundColor = UIColor(white: 0.97, alpha: 1)
         unitPicker.delegate = self
         return unitPicker
     }()
     
+    
+     
     let unitSeparatorView: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor.black
@@ -169,6 +174,7 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.addSubview(inputsContainerView)
         
         hideDatePickerOnTap()
@@ -181,7 +187,6 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
     // Function to setup basic view elements
     private func setupView() {
         view.backgroundColor = UIColor.white
-        
     }
     
     // Function to set up navigation bar
@@ -197,19 +202,21 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
     
     // Function to set up items in navigation bar
     private func setupNavigationBarItems() {
-        setupAddItemButton()
+        let addItemButton = setupAddItemButton()
+        navigationItem.rightBarButtonItem = addItemButton
     }
     
-    
     // Function to set up add item button in navigation bar
-    private func setupAddItemButton() {
+    private func setupAddItemButton() -> UIBarButtonItem {
         // Configuration for add ingredient button
         let addItemButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleConfirmAdd))
         addItemButton.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = addItemButton
+        return addItemButton
     }
     // Function called to add item to user's ingredients
     @objc private func handleConfirmAdd() {
+<<<<<<< HEAD:FreshList/Controllers/AddToShoppingListViewController.swift
+        // TODO: Validate user input (date, empty fields, etc.)
         validateInput()
         
     }
@@ -268,7 +275,7 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
     func pushToFireBase() {
         let db = Firestore.firestore()
         var ref: DocumentReference? = nil
-        ref = db.collection("FreshList_Ingredients").addDocument(data: [
+        ref = db.collection("Shopping_Lists").addDocument(data: [
             "Ingredient_name": nameTextField.text!,
             "Quantity": amountTextField.text!,
             "Units": unitTextField.text!,
@@ -277,16 +284,71 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
+=======
+        //let myRef = db.collection("cShopping_Lists")
+        //let secondRef = db.collection("second_collection")
+        // let tempId = myRef.document().documentID
+        //myRef.document(tempId).setData(myDictionary)
+        //secondRef.document(tempId).setData(otherDictionary)
+        //let fUser = ShoppingList(_id: Auth.auth().currentUser?.uid, , )
+        
+        addItemToShoppingList(db: self.db)
+        
+    }
+    
+    func addItemToShoppingList(db: Firestore) {
+        var shoppinglist = [String]()
+        let shoppingListCollectionRef = Firestore.firestore().collection(kSHOPPINGLIST)
+        shoppingListCollectionRef.getDocuments { (snapshot, error) in
+            if let err = error {
+                debugPrint("Error fetching docs: \(err)")
+>>>>>>> searchFxn:FreshList/Controllers/Shopping/AddToShoppingListViewController.swift
             } else {
-                print("Document added with ID: \(ref!.documentID)")
+                guard let snap = snapshot else { return }
+                for document in snap.documents {
+                    let data = document.data()
+                    let name = data["ingredient_Name"] as? String ?? "Anonymous"
+                    let units = data["units"] as? String ?? ""
+                    let amount = data["amount"] as? Float ?? 0
+                    let ownerId = data["ownerId"] as? String ?? ""
+                    let documentid = data["shoppingListId"] as? String ?? ""
+                    
+                    let newShoppinglistItem  = ShoppingListItem(name: name, amount: amount, units: units, documentid: documentid, ownerId: ownerId)
+                    if !shoppinglist.contains(name) { shoppinglist.append(newShoppinglistItem.name) }
+                }
+            }
+            var ref: DocumentReference? = nil
+            if !shoppinglist.contains(self.nameTextField.text!){
+                ref = db.collection("Shopping_Lists").addDocument(data: [
+                    "ingredient_Name": self.nameTextField.text!,
+                    "amount": self.amountTextField.text!,
+                    "units": self.unitTextField.text!,
+                    "ownerId": Auth.auth().currentUser?.uid,
+                    "shoppingListId": ref?.documentID
+                ]) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        KRProgressHUD.showSuccess(withMessage: "Item has been added to the cart")
+                        print("Document added with ID: \(ref!.documentID)")
+                    }
+                }
+                self.popBack(toControllerType: ShoppingListViewController.self)
+            }
+            else {
+                KRProgressHUD.showWarning(withMessage: "Item already exists in your cart")
             }
         }
+<<<<<<< HEAD:FreshList/Controllers/AddToShoppingListViewController.swift
+=======
+        
+>>>>>>> searchFxn:FreshList/Controllers/Shopping/AddToShoppingListViewController.swift
     }
-
+    
     // Function to setup inputs container and text fields within
     private func setupInputsContainerView() {
         // Set up X, Y, width, and height constraints for inputs container
-//        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         inputsContainerView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
@@ -386,5 +448,4 @@ class AddToIngredientsViewController: UIViewController, UIPickerViewDataSource, 
             categoryTextField.text = categories[row]
         }
     }
-    
 }

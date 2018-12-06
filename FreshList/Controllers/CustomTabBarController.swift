@@ -14,8 +14,35 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
+<<<<<<< HEAD
     }
 
+=======
+        
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if isLoggedIn() {
+            //             Assume user is logged in
+        } else {
+            perform(#selector(showLoginController), with: nil, afterDelay: 0.0)
+        }
+    }
+//     Function to check if user is already logged in
+    fileprivate func isLoggedIn() -> Bool {
+        return true
+    }
+    
+    // Function to show loginController
+    @objc func showLoginController() {
+        let loginController = LoginController()
+        present(loginController, animated: true, completion: {
+            // Maybe do something here later
+        } )
+    }
+    
+>>>>>>> searchFxn
     // Function to set up bottom tab bar
     private func setupTabBar() {
 
@@ -44,7 +71,7 @@ class CustomTabBarController: UITabBarController {
         // Ingredients Tab Button
         let ingredientsController = IngredientsViewController()
         let ingredientsNavigationController = UINavigationController(rootViewController: ingredientsController)
-        ingredientsNavigationController.title = "Ingredients"
+        ingredientsNavigationController.title = "Pantry"
         ingredientsNavigationController.tabBarItem.image = UIImage(named: "ingredientsicon")
 
         // Recipes List Tab Button
