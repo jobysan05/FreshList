@@ -19,7 +19,7 @@ struct defaultsKeys {
     static let flags = "0"
 }
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
     let gcmMessageIDKey = "gcm.message_id"
     
     var window: UIWindow?
@@ -61,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Remote instance ID token: \(result.token)")
             }
         }
+        ConnectToFCM()
         Messaging.messaging().isAutoInitEnabled = true
         // END Setup of push notifications
 
@@ -90,7 +91,118 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     func ConnectToFCM() {
-        Messaging.messaging().shouldEstablishDirectChannel = true
+        //        Messaging.messaging().shouldEstablishDirectChannel = true
+        //creating the notification content
+        let content = UNMutableNotificationContent()
+        let db = Firestore.firestore()
+        let user = Auth.auth().currentUser?.uid
+        db.collection("FreshList_Ingredients").whereField("ownerId", isEqualTo: user)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let doc_val = documentSnapshot else {
+                    return
+                }
+                for doc in doc_val.documents {
+                    let data = doc.data()
+                    let today = Date()
+                    let current_date = today.toString(dateFormat: "MM/dd/yyyy")
+                    let expiry_date = "\(data["Expiry_date"]!)"
+                    let futureDate = Date(timeInterval: 3*86400, since: today)
+                    let fd = futureDate.toString(dateFormat: "MM/dd/yyyy")
+                    print("\(expiry_date)")
+
+                    print("\(current_date)")
+                    print("future date \(fd)")
+
+                    if(current_date.compare(expiry_date) == .orderedSame){
+                        print("item expires today")
+                        content.title = "\(data["Ingredient_name"]!) is expiring Today!"
+                        content.subtitle = ""
+                        content.body = ""
+                        //                    content.badge = 1
+                        //get the notification trigger
+                        // Configure the trigger for a scheduled notification.
+                        
+                        var dateInfo = DateComponents()
+                        dateInfo.hour = 9
+                        dateInfo.minute = 03
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: true)
+                        
+                        //getting the notification request
+                        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
+                        
+                        UNUserNotificationCenter.current().delegate = self
+                        
+                        
+                        //adding the notification to notification center
+                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        //
+
+                    }
+                    else if (current_date.compare(expiry_date) == .orderedAscending) {
+                        
+                        print("The left operand is lesser than the right operand.")
+                        content.title = "\(data["Ingredient_name"]!) has expired!"
+                        content.subtitle = ""
+                        content.body = ""
+                        //                    content.badge = 1
+                        //get the notification trigger
+                        // Configure the trigger for a scheduled notification.
+                        
+                        var dateInfo = DateComponents()
+                        dateInfo.hour = 9
+                        dateInfo.minute = 03
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: true)
+                        
+                        //getting the notification request
+                        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
+                        
+                        UNUserNotificationCenter.current().delegate = self
+                        
+                        
+                        //adding the notification to notification center
+                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        //
+                        
+                    }
+                    else if(fd.compare(expiry_date) == .orderedSame) {
+                        
+                        content.title = "\(data["Ingredient_name"]!) is expiring in three days!"
+                        content.subtitle = ""
+                        content.body = ""
+                        //                    content.badge = 1
+                        //get the notification trigger
+                        // Configure the trigger for a scheduled notification.
+                        
+                        var dateInfo = DateComponents()
+                        dateInfo.hour = 9
+                        dateInfo.minute = 03
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: true)
+                        
+                        //getting the notification request
+                        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
+                        
+                        UNUserNotificationCenter.current().delegate = self
+                        
+                        
+                        //adding the notification to notification center
+                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        //
+                        
+                        
+                    }
+                    else {
+                        print("expiry date not close")
+                        
+                    }
+                   
+                }
+               
+        }
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        //displaying the ios local notification when app is in foreground
+        completionHandler([.alert, .badge, .sound])
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
